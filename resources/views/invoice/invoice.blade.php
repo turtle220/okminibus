@@ -22,7 +22,7 @@
 
             <form action="{{ url('invoice') }}" method="get">
 
-                <div class="col-md-4">
+                <div class="col-md-5">
 
 
                     <div class="col-md-3">
@@ -44,7 +44,7 @@
 
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-5">
 
 
                     <div class="col-md-3">
@@ -70,7 +70,7 @@
 
                 </div>
 
-                <div class="col-md-1">
+                <div class="col-md-2">
 
                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> &nbsp;{{__('custom.search') }}</button>
 

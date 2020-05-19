@@ -254,7 +254,7 @@ $(document).ready(function($) {
         // your code goes here
 
         var url = $('#setcheck').val();
-
+        console.log(url);
         var id = $(this).find('#rowid').val();
         $t = $(this);
 
@@ -310,7 +310,8 @@ $(document).ready(function($) {
     $("#bootstrap-data-table-export").on("click", ".all1", function() {
         // your code goes here
         $('.loading-overlay').show();
-        // var url = $('#allcheck').val();
+        var url = $('#allcheck').val();
+
         var url = window.location.href + '/allcheck';
         $t = $(this);
 

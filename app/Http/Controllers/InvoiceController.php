@@ -29,13 +29,14 @@ class InvoiceController extends Controller
 			$to = $request->to;
 			$data = $this->getTickets($username, $from, $to);
 			
+			
 
 		}
 		else
 		{
 			$from = $request->from;
 			$to = $request->to;
-			
+		
 			$data = $this->getTickets('0', $from, $to);
 
 			// var_dump($data->BTDate);
@@ -85,66 +86,136 @@ class InvoiceController extends Controller
 
 		$user = Auth::user();
 		$userid = Auth::user()->id;
+		if(isset($request->from) && isset($request->to)){
+			if($username == '0')
+			{
 
-		if($username == '0')
-		{
+				if($user->role == 1)
+				{
+						$results = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
+															->select('users.name', 'booking_tickets.*')
+															->whereDate('booking_tickets.created_at','<=', $to)
 
-		   if($user->role == 1)
-		   {
-		 		$results = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
-													   ->select('users.name', 'booking_tickets.*')
-												
-													   ->latest()
-		 											  ->get();  		
-		   }
-		   else if($user->role == 2)
-		   {
-		   		$results = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
-				->leftJoin('checkinvoices',function ($join) use ($userid) {
+															->whereDate('booking_tickets.created_at', '>=', $from)
 
-					$join->on('booking_tickets.id', '=' , 'checkinvoices.invoice_id') ;
+															->latest()
+															->get();  		
+				}
+				else if($user->role == 2)
+				{
+						$results = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
+						->leftJoin('checkinvoices',function ($join) use ($userid) {
 
-					$join->where('checkinvoices.user_id','=', $userid) ;
+							$join->on('booking_tickets.id', '=' , 'checkinvoices.invoice_id') ;
 
-				})
-				->select('users.name', 'booking_tickets.*', 'checkinvoices.id as checkstatus')
-				->where('booking_tickets.user_id',  $userid)
-				->latest()
-				->get();
-		   }
+							$join->where('checkinvoices.user_id','=', $userid) ;
+
+						})
+						->select('users.name', 'booking_tickets.*', 'checkinvoices.id as checkstatus')
+						->where('booking_tickets.user_id',  $userid)
+						->whereDate('booking_tickets.created_at','<=', $to)
+
+						->whereDate('booking_tickets.created_at', '>=', $from)
+
+						->latest()
+						->get();
+				}
+				}
+				else
+				{
+				if($user->role == 1)
+				{
+						$results = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
+															->select('users.name', 'booking_tickets.*')
+															->where('booking_tickets.Name', $username)
+																->whereDate('booking_tickets.created_at','<=', $to)
+
+																->whereDate('booking_tickets.created_at', '>=', $from)
+
+															->latest()
+															->get();
+				}
+				else if($user->role == 2)
+				{
+						$results = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
+							->leftJoin('checkmangements',function ($join) use ($userid){
+
+								$join->on('booking_tickets.id', '=' , 'checkmangements.bookingticket_id') ;
+
+								$join->where('checkmangements.user_id','=', $userid) ;
+
+							})
+							->select('users.name', 'booking_tickets.*', 'checkmangements.id as checkstatus')
+							->where('booking_tickets.Name', $username)
+				
+							->whereDate('booking_tickets.created_at','<=', $to)
+
+							->whereDate('booking_tickets.created_at', '>=', $from)
+							
+							->latest()
+							->get();
+
+				}
+			}
+		} else{
+			if($username == '0')
+			{
+
+				if($user->role == 1)
+				{
+						$results = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
+															->select('users.name', 'booking_tickets.*')
+	
+															->latest()
+															->get();  		
+				}
+				else if($user->role == 2)
+				{
+						$results = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
+						->leftJoin('checkinvoices',function ($join) use ($userid) {
+
+							$join->on('booking_tickets.id', '=' , 'checkinvoices.invoice_id') ;
+
+							$join->where('checkinvoices.user_id','=', $userid) ;
+
+						})
+						->select('users.name', 'booking_tickets.*', 'checkinvoices.id as checkstatus')
+						->where('booking_tickets.user_id',  $userid)
+
+						->latest()
+						->get();
+				}
+				}
+				else
+				{
+				if($user->role == 1)
+				{
+						$results = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
+															->select('users.name', 'booking_tickets.*')
+															->where('booking_tickets.Name', $username)
+													
+															->latest()
+															->get();
+				}
+				else if($user->role == 2)
+				{
+						$results = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
+							->leftJoin('checkmangements',function ($join) use ($userid){
+
+								$join->on('booking_tickets.id', '=' , 'checkmangements.bookingticket_id') ;
+
+								$join->where('checkmangements.user_id','=', $userid) ;
+
+							})
+							->select('users.name', 'booking_tickets.*', 'checkmangements.id as checkstatus')
+							->where('booking_tickets.Name', $username)
+								
+							->latest()
+							->get();
+
+				}
+			}
 		}
-		else
-		{
-		   if($user->role == 1)
-		   {
-		   		$results = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
-		 											  ->select('users.name', 'booking_tickets.*')
-													   ->where('booking_tickets.Name', $username)
-			
-
-		 											  ->latest()
-		 											  ->get();
-		   }
-		   else if($user->role == 2)
-		   {
-				$results = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
-					->leftJoin('checkmangements',function ($join) use ($userid){
-
-						$join->on('booking_tickets.id', '=' , 'checkmangements.bookingticket_id') ;
-
-						$join->where('checkmangements.user_id','=', $userid) ;
-
-					})
-					->select('users.name', 'booking_tickets.*', 'checkmangements.id as checkstatus')
-					->where('booking_tickets.Name', $username)
-		
-					->latest()
-					->get();
-
-		   }
-		}
-
-	   
 		return $results;
 
 	}
@@ -220,7 +291,7 @@ class InvoiceController extends Controller
         $data = BookingTicket::leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
                                         ->where('booking_tickets.id', $id)->get();
 
-    		$invoice = 'invoice';
+		$invoice = 'invoice';
 
         if(count($data) != 0)
         {

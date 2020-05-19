@@ -1044,7 +1044,6 @@ class BookingController extends Controller
 
         $ticketId = $request->id;
 
-        var_dump($ticketId);
         $check = CheckMangement::where('user_id', $userId)
                                 ->where('deleted_at', NULL);
         $booking = BookingTicket::where('user_id', $userId)

@@ -76,13 +76,13 @@ class ExcelController extends Controller
 
                 $data = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
 
-                                                    ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
+                    ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
 
-                                                    ->select('users.name', 'booking_tickets.*', 'buses.carnumber', 'buses.carname')
+                    ->select('users.name', 'booking_tickets.*', 'buses.carnumber', 'buses.carname')
 
-                                                    ->whereDate('booking_tickets.created_at','<=', $to)
+                    ->whereDate('booking_tickets.created_at','<=', $to)
 
-                                                    ->whereDate('booking_tickets.created_at', '>=', $from);
+                    ->whereDate('booking_tickets.created_at', '>=', $from);
 
                       
 
@@ -108,15 +108,15 @@ class ExcelController extends Controller
 
                  $data = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
 
-                                                      ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
+                    ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
 
-                                                      ->select('users.name', 'booking_tickets.*', 'buses.carnumber', 'buses.carname')
+                    ->select('users.name', 'booking_tickets.*', 'buses.carnumber', 'buses.carname')
 
-                                                      ->whereDate('booking_tickets.created_at','<=', $to)
+                    ->whereDate('booking_tickets.created_at','<=', $to)
 
-                                                      ->whereDate('booking_tickets.created_at', '>=', $from)
+                    ->whereDate('booking_tickets.created_at', '>=', $from)
 
-                                                      ->where('booking_tickets.user_id', Auth::user()->id);
+                    ->where('booking_tickets.user_id', Auth::user()->id);
 
                 
 
@@ -645,7 +645,8 @@ class ExcelController extends Controller
 													 ->latest()
 													 ->get();
 			}
-		}
+        }
+        var_dump($data);
 
 		return view('excel.excelinvoicelist',['data' => $data]);
     }
