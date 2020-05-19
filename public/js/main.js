@@ -691,7 +691,7 @@ function resavearea()
                 var area = data['curarea'];
 
 
-
+				console.log(area,"----------area")
 
 
 

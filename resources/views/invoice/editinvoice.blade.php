@@ -99,14 +99,15 @@
       <div class="col-md-3"></div>
       <div class="col-md-4">FACTURA SIMPLIFICADA</div>
       <div class="col-md-4"></div>
-      <div class="col-md-1 red">No {{$value[0]->id}}</div>
+	  <div class="col-md-1 red" >No <input type="text" class="form-control" name="origin" class="form-control" value="{{$value[0]->id}}"></div>
     </div>
     <div class="row border-bottom">
       <div class="col-md-1"> 
       CLIENTE:
       </div>
       <div class="col-md-3">
-       {{ $value[0]->Name}}
+	  <input type="text" class="form-control" name="origin" class="form-control" value="{{$value[0]->Name}}">
+       
       </div>
     </div>
 
@@ -120,6 +121,7 @@
     </div>
     <div class="row title"> 
       <div class="col-md-12 col-md-center">
+		  
       <h2>SERVICIO FLETADO (c.f.s.)</h2>
       </div>
     </div>
@@ -186,23 +188,14 @@
 
 		<div class="row ">
 			<div class="col-md-12">
-				<div class="col-md-6">
-					<span>IMPORTE(10% IVA INCLUIDO)</span>
-				</div>
+	
+			<input type="form-control"  class="form-control" name="BTTime" value="IMPORTE(10% IVA INCLUIDO)">
+			</input>
 
-				<div class="col-md-6">
-					
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-12">		
-				<div class="col-md-4">
 					<textarea name="price" rows="10" class="width-100">{{$value[0]->Price}}
 						
 					</textarea>
-				</div>
+				
 			</div>
 
 		</div>

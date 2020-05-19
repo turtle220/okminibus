@@ -138,23 +138,16 @@
 
 				<th style="width: 10%;">FECHA</th>
 
-				<th style="width: 10%;">ORIGEN</th>
+				<th style="width: 10%;">NUM.FACTURA</th>
 
-				<th style="width: 10%;">PARADAS</th>
+				<th style="width: 10%;">NOMBRE</th>
 
-				<th style="width: 10%;">DESTINO</th>
+				<th style="width: 10%;">IMPORTE</th>
 
-				<th style="width: 5%;">SD</th>
+				<th style="width: 10%;">OBSERVACIONES</th>
 
-				<th style="width: 5%;">DR</th>
+				<th style="width: 10%;">MATRICULA</th>
 
-				<th style="width: 5%;">DC</th>
-
-				<th style="width: 5%;">TU</th>
-
-				<th style="width: 20%;">NOMBRE</th>
-
-				<th style="width: 20%;">CIF</th>
 
 			</tr>
 
@@ -170,23 +163,16 @@
 
 				<td>{{$val->BTDate}}</td>
 
-				<td>{{$val->origin}}</td>
-
-				<td>{{$val->paradas}}</td>
-
-				<td>{{$val->destination}}</td>
-
-				<td>@if($val->sd == 'sd' ||$val->sd == '' )*@endif</td>
-
-				<td>@if($val->sd == 'dr')*@endif</td>
-
-				<td>@if($val->sd == 'dc')*@endif</td>	
-
-				<td>@if($val->sd == 'tu')*@endif</td>
+				<td>{{$val->BTicketRef}}</td>
 
 				<td>{{$val->Name}}</td>
 
-				<td>{{$val->Passport}}</td>
+				<td>{{$val->Price}}</td>
+
+				<td>{{$val->observation}}</td>
+
+				<td>{{$val->carnumber}}</td>
+
 
 			</tr>
 

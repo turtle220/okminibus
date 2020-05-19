@@ -274,16 +274,16 @@
                                 <th>{{ __('custom.viewshow') }}</th>
 
                                 <th>
-					<div class="pretty p-icon  p-locked all">
-                                        <input type="checkbox"  @if($allStatus == true)checked @endif>
-                                        
-                                        <div class="state p-success">
-                                            <i class="icon fa fa-check"></i>
-                                            <label></label>
-                                        </div>
-                                        
-                                    	</div> 
-				</th>
+                                    <div class="pretty p-icon  p-locked all">
+                                                            <input type="checkbox"  @if($allStatus == true)checked @endif>
+                                                            
+                                                            <div class="state p-success">
+                                                                <i class="icon fa fa-check"></i>
+                                                                <label></label>
+                                                            </div>
+                                                            
+                                                            </div> 
+                                    </th>
 
                             </tr>
 

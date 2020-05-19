@@ -624,30 +624,34 @@ class ExcelController extends Controller
             $checkinvoices->delete();                                
         
             $ids = [];
-            
-        
+                                      
             foreach($checkedDatas as $val)
         
                array_push($ids, $val->invoice_id);
-               
+            
 			if($name==""||$name==0)
 			{
-                $data = DB::table('booking_tickets')->where('user_id', $user->id)
+                $data = DB::table('booking_tickets')->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
+                                                    ->where('booking_tickets.user_id', $user->id)
                                                     ->whereIn('booking_tickets.id', $ids)
-
-				 					 				->latest()
-				 									->get();
+                                                    ->select('booking_tickets.*', 'buses.carnumber', 'buses.carname')
+				 					 			
+                                                    ->get();
 			}
 			else
 			{
-				$data = DB::table('booking_tickets')->where('user_id', $user->id)
-													 ->where('Name', $name)
-													 ->latest()
-													 ->get();
-			}
-        }
-        var_dump($data);
+                $data = DB::table('booking_tickets')->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
+                                                ->where('booking_tickets.user_id', $user->id)
+                                                ->where('Name', $name)
+                                                ->select('booking_tickets.*', 'buses.carnumber', 'buses.carname')
+                                                ->get();
+           
+            }
+      
 
+        }
+     
+      
 		return view('excel.excelinvoicelist',['data' => $data]);
     }
 
