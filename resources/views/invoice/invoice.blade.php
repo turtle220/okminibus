@@ -24,23 +24,20 @@
 
                 <div class="col-md-5">
 
-
                     <div class="col-md-3">
 
 
-                    <label class="padding-top-5">{{__('custom.from')}}:</label>
+                        <label class="padding-top-5">{{__('custom.from')}}:</label>
 
 
                     </div>
 
                     <div class="col-md-9">
 
-
-                    <input type="date" class="form-control"  value="{{old('from')}}" name="from">
+                        <input type="date" class="form-control"  value="{{old('from')}}" name="from">
 
 
                     </div>
-
 
                 </div>
 
@@ -50,20 +47,14 @@
                     <div class="col-md-3">
 
 
-                    <label class="padding-top-5">{{__('custom.to')}}:</label>
+                     <label class="padding-top-5">{{__('custom.to')}}:</label>
 
 
                     </div>
 
-
-                    
-
-
                     <div class="col-md-9">
 
-
-                    <input type="date" class="form-control" value="{{old('to')}}" name="to">
-
+                        <input type="date" class="form-control" value="{{old('to')}}" name="to">
 
                     </div>
 
@@ -114,14 +105,14 @@
                                 <th>{{ __('custom.viewinvoice') }}</th>
                                 <th>
                                     <div class="pretty p-icon  p-locked all1">
-                                                        <input type="checkbox"  @if($allStatus == true)checked @endif>
-                                                        
-                                                        <div class="state p-success">
-                                                            <i class="icon fa fa-check"></i>
-                                                            <label></label>
-                                                        </div>
-                                                        
-                                                        </div> 
+                                        <input type="checkbox"  @if($allStatus == true)checked @endif>
+                                        
+                                        <div class="state p-success">
+                                            <i class="icon fa fa-check"></i>
+                                            <label></label>
+                                        </div>
+                                        
+                                    </div> 
                                 </th>
                             </tr>
                         </thead>

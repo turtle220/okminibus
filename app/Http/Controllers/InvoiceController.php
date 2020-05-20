@@ -27,21 +27,16 @@ class InvoiceController extends Controller
 			$username = $request->username;
 			$from = $request->from;
 			$to = $request->to;
+			
 			$data = $this->getTickets($username, $from, $to);
 			
-			
-
 		}
 		else
 		{
 			$from = $request->from;
 			$to = $request->to;
-		
+	
 			$data = $this->getTickets('0', $from, $to);
-
-			// var_dump($data->BTDate);
-			// $from = $request->from;
-			// $data BTDate
 			
 		}
 	
@@ -54,22 +49,17 @@ class InvoiceController extends Controller
 		{
 			$users = BookingTicket::where('user_id', $user->id)->groupBy('Name')->get();
 		}
-		// var_dump($request->username);
-		// echo "<br>";
-		// return $users;
 
-		// var_dump($request->from);
-	
 		$allStatus = false;
 		$userId = Auth::user()->id;
-		$check = DB::table('checkinvoices')->where('user_id', $userId)
-										  ->where('deleted_at', NULL);
+		$check = DB::table('checkinvoices')->where('user_id', $userId);
+										  
 
 		$booking = DB::table('checkinvoices')->where('user_id', $userId)
 											->where('deleted_at',NULL);
 		if($check->count() == $booking->count())
 		{
-			$allStatus = true;
+			$allStatus = false;
 	
 		}
 
@@ -83,10 +73,10 @@ class InvoiceController extends Controller
 
 	public function getTickets($username, $from, $to)
 	{
-
+		
 		$user = Auth::user();
 		$userid = Auth::user()->id;
-		if(isset($request->from) && isset($request->to)){
+		if(isset($from) && isset($to)){
 			if($username == '0')
 			{
 
@@ -128,9 +118,9 @@ class InvoiceController extends Controller
 						$results = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
 															->select('users.name', 'booking_tickets.*')
 															->where('booking_tickets.Name', $username)
-																->whereDate('booking_tickets.created_at','<=', $to)
+															->whereDate('booking_tickets.created_at','<=', $to)
 
-																->whereDate('booking_tickets.created_at', '>=', $from)
+															->whereDate('booking_tickets.created_at', '>=', $from)
 
 															->latest()
 															->get();

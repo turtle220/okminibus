@@ -231,7 +231,7 @@
 
 						@foreach ($areas as $val)
 
-								<option @if ($val->name == $BookingTicket->destination )selected @endif value="{{$val->name}}">{{$val->name}}</option>
+								<option @if ($val->name == 'PALMA' )selected @endif value="{{$val->name}}">{{$val->name}}</option>
 
   						@endforeach
 

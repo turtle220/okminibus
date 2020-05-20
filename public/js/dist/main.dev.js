@@ -264,7 +264,6 @@ function resavearea() {
     success: function success(data) {
       if (data['success'] == "true") {
         var area = data['curarea'];
-        console.log(area, "----------area");
         $("#sdestination").attr('disabled', false);
         $("#sdestination").append('<option  selected value=' + area + '>' + area + '</option>');
       } else {

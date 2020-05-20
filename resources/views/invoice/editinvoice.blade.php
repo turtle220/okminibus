@@ -98,8 +98,8 @@
     <div class="row title">
       <div class="col-md-3"></div>
       <div class="col-md-4">FACTURA SIMPLIFICADA</div>
-      <div class="col-md-4"></div>
-	  <div class="col-md-1 red" >No <input type="text" class="form-control" name="origin" class="form-control" value="{{$value[0]->id}}"></div>
+      <div class="col-md-3"></div>
+	  <div class="col-md-2 red" style="display:flex">No <input type="text" class="form-control" name="origin" class="form-control" value="{{$value[0]->id}}"></div>
     </div>
     <div class="row border-bottom">
       <div class="col-md-1"> 
