@@ -217,7 +217,8 @@ $(document).ready(function($) {
     $("#bootstrap-data-table-export").on("click", ".single-check1", function() {
         // your code goes here
 
-        var url = window.location.href + '/setcheck';
+        // var url = window.location.href + '/setcheck';
+        var url = $('#setcheck1').val();
 
 
         var id = $(this).find('#rowid').val();
@@ -254,7 +255,7 @@ $(document).ready(function($) {
         // your code goes here
 
         var url = $('#setcheck').val();
-        console.log(url);
+
         var id = $(this).find('#rowid').val();
         $t = $(this);
 
@@ -286,6 +287,7 @@ $(document).ready(function($) {
         var url = $('#allcheck').val();
         $t = $(this);
 
+
         $.ajax({
             url: url,
             data: {
@@ -310,10 +312,11 @@ $(document).ready(function($) {
     $("#bootstrap-data-table-export").on("click", ".all1", function() {
         // your code goes here
         $('.loading-overlay').show();
-        var url = $('#allcheck').val();
+        var url = $('#all1').val();
 
-        var url = window.location.href + '/allcheck';
+        // var url = window.location.href + '/allcheck';
         $t = $(this);
+
 
         $.ajax({
             url: url,

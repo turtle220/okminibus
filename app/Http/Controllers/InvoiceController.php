@@ -19,6 +19,8 @@ class InvoiceController extends Controller
 
 	public function index(Request $request)
 	{
+
+		$request->flash();
 		$user = Auth::user();
 
 		if(isset($request->username)&&$request->username != '0')
@@ -83,13 +85,13 @@ class InvoiceController extends Controller
 				if($user->role == 1)
 				{
 						$results = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
-															->select('users.name', 'booking_tickets.*')
-															->whereDate('booking_tickets.created_at','<=', $to)
+							->select('users.name', 'booking_tickets.*')
+							->whereDate('booking_tickets.created_at','<=', $to)
 
-															->whereDate('booking_tickets.created_at', '>=', $from)
+							->whereDate('booking_tickets.created_at', '>=', $from)
 
-															->latest()
-															->get();  		
+							->latest()
+							->get();  		
 				}
 				else if($user->role == 2)
 				{
@@ -109,6 +111,8 @@ class InvoiceController extends Controller
 
 						->latest()
 						->get();
+
+			
 				}
 				}
 				else
@@ -242,6 +246,7 @@ class InvoiceController extends Controller
 		$bookingTicket->BTDate = $request->BTDate;
 		$bookingTicket->BTTime = $request->BTTime;
 		
+		$bookingTicket->Passport = $request->passport;
 		$bookingTicket->transfer = $request->transfer;
 		$bookingTicket->origin =  $request->origin;
 		$bookingTicket->destination = $request->destination;
@@ -307,17 +312,38 @@ class InvoiceController extends Controller
 
 		if(Auth::user()->role == 1)
 		{
+		
+            $userId = $user->id;
+
+            $checkinvoices = DB::table('checkinvoices')->where('user_id', $userId);
+
+            $checkedDatas   =  $checkinvoices->get();
+        
+            $checkinvoices->delete();                                
+        
+            $ids = [];
+                                      
+            foreach($checkedDatas as $val)
+        
+			   array_push($ids, $val->invoice_id);
+			   
 			if($name==""||$name== '0')
 			{
-				$data = DB::table('booking_tickets')->latest()
-													->get();
+                $data = DB::table('booking_tickets')->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
+                    ->where('booking_tickets.user_id', $user->id)
+                    ->whereIn('booking_tickets.id', $ids)
+                    ->select('booking_tickets.*', 'buses.carnumber', 'buses.carname')
+                
+                    ->get();
 				
 			}
 			else
 			{
-				$data = DB::table('booking_tickets')->where('Name', $name)
-													 ->latest()
-													 ->get();
+                $data = DB::table('booking_tickets')->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
+                                                ->where('booking_tickets.user_id', $user->id)
+                                                ->where('Name', $name)
+                                                ->select('booking_tickets.*', 'buses.carnumber', 'buses.carname')
+                                                ->get();
 				
 			}
 
@@ -326,22 +352,39 @@ class InvoiceController extends Controller
 		else
 		{
 			$user = Auth::user();
-			if($name==""||$name==0)
-			{
-				$data = DB::table('booking_tickets')->where('user_id', $user->id)
-				 					 				->latest()
-				 									->get();
+            $userId = $user->id;
+
+            $checkinvoices = DB::table('checkinvoices')->where('user_id', $userId);
+
+            $checkedDatas   =  $checkinvoices->get();
+        
+            $checkinvoices->delete();                                
+        
+            $ids = [];
+                                      
+            foreach($checkedDatas as $val)
+        
+               array_push($ids, $val->invoice_id);
+			
+			if($name==""||$name==0){
+				$data = DB::table('booking_tickets')->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
+				->where('booking_tickets.user_id', $user->id)
+				->whereIn('booking_tickets.id', $ids)
+				->select('booking_tickets.*', 'buses.carnumber', 'buses.carname')
+			
+				->get();
 			}
 			else
 			{
-				$data = DB::table('booking_tickets')->where('user_id', $user->id)
-													 ->where('Name', $name)
-													 ->latest()
-													 ->get();
+                $data = DB::table('booking_tickets')->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
+                        ->where('booking_tickets.user_id', $user->id)
+                        ->where('Name', $name)
+                        ->select('booking_tickets.*', 'buses.carnumber', 'buses.carname')
+                        ->get();
 			}
 		}
-		
-		//return $data;
+	
+	
 		$pdf = PDF::loadView('pdf.invoicelist',['data' => $data]);
 		$out = $pdf->setPaper('a4', 'portrait')->setWarnings(false)->stream();
 

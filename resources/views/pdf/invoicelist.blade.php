@@ -126,7 +126,7 @@
 
 			<tr>
 
-				<th rowspan="3" colspan="3"><img  src="{{ asset('images/logo.png') }}"></th>
+				<th rowspan="2" colspan="3"><img  src="{{ asset('images/logo.png') }}"></th>
 
 				<th colspan="7" class="border-bottom-1">EMPRESA</th>
 
@@ -134,13 +134,12 @@
 
 			<tr>
 
-				<th rowspan="2" colspan="7"> ISLAND TOUR & TRANSFER S.L.U. B-16561540 </th>
+				<th colspan="7"> ISLAND TOUR & TRANSFER S.L.U. B-16561540 </th>
 
 				
 
 			</tr>
 
-			<tr></tr>
 
 			<tr>
 
@@ -159,26 +158,17 @@
 			</tr>
 
 			<tr>
-
 				<th style="width: 10%;">FECHA</th>
 
-				<th style="width: 10%;">ORIGEN</th>
+				<th style="width: 10%;">NUM.FACTURA</th>
 
-				<th style="width: 10%;">PARADAS</th>
+				<th style="width: 10%;">NOMBRE</th>
 
-				<th style="width: 10%;">DESTINO</th>
+				<th style="width: 20%;">IMPORTE</th>
 
-				<th style="width: 5%;">SD</th>
+				<th colspan="4">OBSERVACIONES</th>
 
-				<th style="width: 5%;">DR</th>
-
-				<th style="width: 5%;">DC</th>
-
-				<th style="width: 5%;">TU</th>
-
-				<th style="width: 20%;">NOMBRE</th>
-
-				<th style="width: 20%;">CIF</th>
+				<th colspan="2">MATRICULA</th>
 
 			</tr>
 
@@ -194,23 +184,15 @@
 
 				<td>{{$val->BTDate}}</td>
 
-				<td>{{$val->origin}}</td>
-
-				<td>{{$val->paradas}}</td>
-
-				<td>{{$val->destination}}</td>
-
-				<td>{{$val->sd}}</td>
-
-				<td>{{$val->dr}}</td>
-
-				<td>{{$val->dc}}</td>	
-
-				<td>{{$val->tu}}</td>
+				<td>{{$val->BTicketRef}}</td>
 
 				<td>{{$val->Name}}</td>
 
-				<td>{{$val->cif}}</td>
+				<td>{{$val->Price}}</td>
+
+				<td colspan="4">{{$val->observation}}</td>
+
+				<td colspan="2" >{{$val->carnumber}}</td>
 
 			</tr>
 

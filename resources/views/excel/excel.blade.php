@@ -205,13 +205,7 @@
 
 
     			<form method="POST" action="{{ url('excel/print')}}">
-
-
-    				
-
-
     				@csrf
-
 
     				<input type="hidden" name="from" value="{{old('from')}}">
 
@@ -223,7 +217,6 @@
 
 
     				<button type="submit"  class="btn btn-primary"><i class="fa fa-print"></i>{{__('custom.excel')}}</button>
-
 
     			</form>
 

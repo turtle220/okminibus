@@ -403,11 +403,6 @@ class BookingController extends Controller
 
       
 
-       
-
-
-
-
 
         if(($_GET["BTicketId"]== "")
 

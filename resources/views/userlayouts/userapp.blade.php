@@ -217,6 +217,7 @@
     <input type="hidden" id="getuserlistajax" value="{{ url('/getuserlistajax')}}">
 
 
+    <input type="hidden" id="setcheck1" value="{{url('/invoice/setcheck')}}">
 
     <input type="hidden" id="setcheck" value="{{url('/BookingTickets/setcheck')}}">
 
@@ -242,8 +243,11 @@
 
     <input type="hidden" id="errorMsg" value="{{__('custom.errorMsg')}}">
 
-    <input type="hidden" id="allcheck" value="{{url('/BookingTickets/allcheck')}}">
+    <input type="hidden" id="all1" value="{{url('/invoice/allcheck')}}">
 
+    <input type="hidden" id="allcheck" value="{{url('/BookingTickets/allcheck')}}">
+    
+  
 
 </head>
 

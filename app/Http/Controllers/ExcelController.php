@@ -274,6 +274,8 @@ class ExcelController extends Controller
 
 
 
+    //    var_dump($result);
+    //    var_dump($count);
 
 
     	return view('excel.excel', ['values' => $result, 

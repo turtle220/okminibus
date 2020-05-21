@@ -106,8 +106,8 @@
       CLIENTE:
       </div>
       <div class="col-md-3">
-	  <input type="text" class="form-control" name="origin" class="form-control" value="{{$value[0]->Name}}">
-       
+	  
+			{{$value[0]->Name}}
       </div>
     </div>
 
@@ -116,7 +116,8 @@
       D.N.I:
       </div>
       <div class="col-md-3">
-       {{ $value[0]->Passport}}
+	  <input type="text" class="form-control" name="passport" class="form-control" value="{{ $value[0]->Passport}}">
+       
       </div>
     </div>
     <div class="row title"> 
