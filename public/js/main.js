@@ -1,11 +1,6 @@
 $(document).ready(function($) {
 
 
-
-
-
-
-
     //uploading
 
     toastr.options = {
@@ -83,7 +78,6 @@ $(document).ready(function($) {
             data: {
 
 
-
                 id: $(this).parents('tr').find('input').val(),
 
 
@@ -95,17 +89,13 @@ $(document).ready(function($) {
 
 
 
-
             },
-
 
 
             success: function(data) {
 
 
-
                 if (data['success'] == "true")
-
 
 
                 {
@@ -162,53 +152,29 @@ $(document).ready(function($) {
 
 
 
-
-
-
-
     $('.update-save').click(function() {
-
 
 
         $('#update-invoice').trigger("click");
 
 
-
     });
 
-
-
-
-
-
-
     $(function() {
-
 
 
         modal1Dismiss();
 
 
-
     });
-
-
-
-
-
 
 
     $('#username').change(function() {
 
 
-
         $('#name').val($('#username').val());
 
-
-
         $('#invoice-submit').trigger("click");
-
-
 
     });
 
@@ -314,6 +280,8 @@ $(document).ready(function($) {
         $('.loading-overlay').show();
         var url = $('#all1').val();
 
+        var from = $('#date_from').val();
+        var to = $('#date_to').val();
         // var url = window.location.href + '/allcheck';
         $t = $(this);
 
@@ -321,7 +289,8 @@ $(document).ready(function($) {
         $.ajax({
             url: url,
             data: {
-
+                from: from,
+                to: to
             },
             success: function(data) {
                 if (data["status"] == "check") {
@@ -1028,8 +997,6 @@ function ShowBookingTicket(BTicketId)
 
 
 {
-
-
 
     var url = $('#BookingTickets-show').val();
 

@@ -54,11 +54,16 @@ class InvoiceController extends Controller
 
 		$allStatus = false;
 		$userId = Auth::user()->id;
-		$check = DB::table('checkinvoices')->where('user_id', $userId);
-										  
-
-		$booking = DB::table('checkinvoices')->where('user_id', $userId)
+		$check = DB::table('checkinvoices')->where('user_id', $userId)
 											->where('deleted_at',NULL);
+										  
+											
+		// var_dump($check->count());
+		$booking = DB::table('booking_tickets')->where('user_id', $userId)
+											->where('deleted_at',NULL);
+		// var_dump($check->count());
+		// var_dump($booking->count());
+
 		if($check->count() == $booking->count())
 		{
 			$allStatus = false;
@@ -219,11 +224,12 @@ class InvoiceController extends Controller
 		$id = $request->id;
 
 		$data = BookingTicket::leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
-                                        ->where('booking_tickets.id', $id)
-                                        ->select('buses.carnumber as carnumber', 'booking_tickets.*')->get();
+			->where('booking_tickets.id', $id)
+			->select('buses.carnumber as carnumber', 'booking_tickets.*')->get();
+
 		$users = User::where('role', 3)->get();//get only user.
 		$curUser = User::where('name', $data[0]->name)->get();
-
+		
 		return view('invoice.editinvoice', ['value' => $data,
 											'users' => $users,
 											'customer' => $curUser]);	
@@ -246,6 +252,8 @@ class InvoiceController extends Controller
 		$bookingTicket->BTDate = $request->BTDate;
 		$bookingTicket->BTTime = $request->BTTime;
 		
+		$bookingTicket->Name = $request->Name;
+
 		$bookingTicket->Passport = $request->passport;
 		$bookingTicket->transfer = $request->transfer;
 		$bookingTicket->origin =  $request->origin;
@@ -399,8 +407,8 @@ class InvoiceController extends Controller
 	public function viewinvoice($id)
     {
         $data = BookingTicket::leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
-                                        ->where('booking_tickets.id', $id)
-                                        ->select('buses.carnumber as carnumber', 'booking_tickets.*')->get();
+				->where('booking_tickets.id', $id)
+				->select('buses.carnumber as carnumber', 'booking_tickets.*')->get();
         if(count($data) != 0)
         {
             $customer = DB::table('users')->where('name', $data[0]->Name)->get();
@@ -434,7 +442,7 @@ class InvoiceController extends Controller
         if($data->count() == 1)
 
         {
-			$ticketId = $request->id;
+			
             $data->delete();
 
             return response()->json(['stauts' => 'uncheck']);
@@ -459,35 +467,78 @@ class InvoiceController extends Controller
      public function allCheck_invoice(Request $request)
     {
         $userId = Auth::user()->id;
-
+		$from = $request->from;
+		$to = $request->to;
+		// var_dump($from);
+		
         $ticketId = $request->id;
 
         $check = DB::table('checkinvoices')->where('user_id', $userId)
-                                ->where('deleted_at', NULL);
-        $booking = BookingTicket::where('user_id', $userId)
-                                ->where('deleted_at',NULL);
+								->where('deleted_at', NULL);
+		if($from == NULL || $to == NULL){
+			$booking = BookingTicket::where('user_id', $userId)
 
-        if($check->count() == $booking->count())
-        {
-            $check->delete();
-            
-            return response()->json(['stauts' => 'uncheck']);
-        }else
-        {
-            $check->delete();
-            $booking = BookingTicket::where('user_id', $userId)
-                                    ->get();
-            foreach($booking as $val)
-            {
-             
-				$checkinvoice =DB::table('checkinvoices')->insert([
-					'user_id' => $userId,
-					'invoice_id' => $val->id
-				]);
-            }
-            
+			->where('deleted_at',NULL);
 
-            return response()->json(['status' => 'check']); 
-        }
+			
+			if($check->count() == $booking->count())
+			{
+				$check->delete();
+				
+				return response()->json(['stauts' => 'uncheck']);
+			}else
+			{
+				$check->delete();
+				$booking = BookingTicket::where('user_id', $userId)
+									
+									->get();
+				foreach($booking as $val)
+				{
+				 
+					$checkinvoice =DB::table('checkinvoices')->insert([
+						'user_id' => $userId,
+						'invoice_id' => $val->id
+					]);
+				}
+				
+	
+				return response()->json(['status' => 'check']); 
+			}
+		}else{
+			$booking = BookingTicket::where('user_id', $userId)
+								->whereDate('booking_tickets.created_at','<=', $to)
+
+								->whereDate('booking_tickets.created_at', '>=', $from)
+								->where('deleted_at',NULL);
+
+			if($check->count() == $booking->count())
+			{
+				$check->delete();
+				
+				return response()->json(['stauts' => 'uncheck']);
+			}else
+			{
+				$check->delete();
+				$booking = BookingTicket::where('user_id', $userId)
+									->whereDate('booking_tickets.created_at','<=', $to)
+	
+									->whereDate('booking_tickets.created_at', '>=', $from)
+									->get();
+				foreach($booking as $val)
+				{
+				 
+					$checkinvoice =DB::table('checkinvoices')->insert([
+						'user_id' => $userId,
+						'invoice_id' => $val->id
+					]);
+				}
+				
+	
+				return response()->json(['status' => 'check']); 
+			}
+		}
+
+		
+
     }
 }

@@ -130,7 +130,7 @@
 
 	      		<div class="fieldsValue"><!--PAX-->
 
-					{{ $BookingTicket->[destination][1] }}
+					{{ $BookingTicket->destination }}
 
 				</div>
 

@@ -105,9 +105,11 @@
 	tbody > tr, td {
 
 		border: 1px solid black;
-	
+
+			
 
 	}
+
 
 
 	tbody > tr > td {
@@ -117,10 +119,14 @@
 	}
 
 
+
+
+
 </style>
 
 <div class="container pdf-wrap">
 
+	<table class="table col-md-center"><thead><tr><th colspan="10">HOJA DE RUTA</th></tr><tr><th rowspan="3" colspan="3"><img  src="../images/logo.jpg"></th><th colspan="7" class="border-bottom-1">EMPRESA</th></tr><tr><th rowspan="2" colspan="7"> ISLAND TOUR & TRANSFER S.L.U. B-16561540 </th></tr><tr></tr><tr><th colspan="3">VEHICULO 6367JNP </th><th colspan="7">COND. P.ROIG GARCIAS 43056156</th></tr></thead></table>
 
 	<table class="table col-md-center" id="testTable">
 
@@ -132,16 +138,23 @@
 
 				<th style="width: 10%;">FECHA</th>
 
-				<th style="width: 10%;">NUM.FACTURA</th>
+				<th style="width: 10%;">ORIGEN</th>
 
-				<th style="width: 10%;">NOMBRE</th>
+				<th style="width: 10%;">PARADAS</th>
 
-				<th style="width: 10%;">IMPORTE</th>
+				<th style="width: 10%;">DESTINO</th>
 
-				<th style="width: 10%;">OBSERVACIONES</th>
+				<th style="width: 5%;">SD</th>
 
-				<th style="width: 10%;">MATRICULA</th>
+				<th style="width: 5%;">DR</th>
 
+				<th style="width: 5%;">DC</th>
+
+				<th style="width: 5%;">TU</th>
+
+				<th style="width: 20%;">NOMBRE</th>
+
+				<th style="width: 20%;">CIF</th>
 
 			</tr>
 
@@ -157,16 +170,23 @@
 
 				<td>{{$val->BTDate}}</td>
 
-				<td>{{$val->Num_Fac}}</td>
+				<td>{{$val->origin}}</td>
+
+				<td>{{$val->paradas}}</td>
+
+				<td>{{$val->destination}}</td>
+
+				<td>@if($val->sd == 'sd' ||$val->sd == '' )*@endif</td>
+
+				<td>@if($val->sd == 'dr')*@endif</td>
+
+				<td>@if($val->sd == 'dc')*@endif</td>	
+
+				<td>@if($val->sd == 'tu')*@endif</td>
 
 				<td>{{$val->Name}}</td>
 
-				<td>{{$val->Price}}</td>
-
-				<td>{{$val->observation}}</td>
-
-				<td>{{$val->carnumber}}</td>
-
+				<td>{{$val->Passport}}</td>
 
 			</tr>
 
@@ -204,7 +224,7 @@
 
   var uri = 'data:application/vnd.ms-excel;base64,'
 
-    , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+    , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table class="table col-md-center"><thead><tr><th colspan="10">HOJA DE RUTA</th></tr><tr><th rowspan="3" colspan="3" style="height:45px;"> <img  src={imgsrc2} border = 0 style="margin-left:20px;margin-top:10px;" width="210"/></th><th colspan="7" class="border-bottom-1">EMPRESA</th></tr><tr><th rowspan="2" colspan="7"> ISLAND TOUR & TRANSFER S.L.U. B-16561540 </th></tr><tr></tr><tr><th colspan="3">VEHICULO 6367JNP </th><th colspan="7">COND. P.ROIG GARCIAS 43056156</th></tr></thead></table><table>{table}</table><div class="footer" style="width: 80%; vertical-align: bottom;"><div style="width: 100%; margin-top:  3px; margin-bottom: 3px">SD- SERVICIO DISCRECIONAL</div><div style="width: 100%; margin-bottom: 3px">TU-TRANSPORTE TURISTICO</div><div style="width: 100%; margin-bottom: 3px">DR- DISCRECIONAL REFUREZO SERVICIO PUBLICO REGULAR GENERAL</div><div style="width: 100%; margin-bottom: 3px">DC- DISCRECIONAL COLABORADOR SERVICIO PUBLICO REGULAR ESPECIA	</div></div></body></html>'
 
     , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
 
@@ -214,7 +234,7 @@
 
     if (!table.nodeType) table = document.getElementById(table)
 
-    	imgsrc2='http://127.0.0.1/booking2/public/images/logo.jpg';
+    	imgsrc2='http://bookin.okminibus.com/images/logo.jpg';
 
     var ctx = {worksheet: name || 'Worksheet',imgsrc2:imgsrc2, table: table.innerHTML}
 

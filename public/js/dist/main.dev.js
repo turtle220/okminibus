@@ -127,12 +127,17 @@ $(document).ready(function ($) {
   $("#bootstrap-data-table-export").on("click", ".all1", function () {
     // your code goes here
     $('.loading-overlay').show();
-    var url = $('#all1').val(); // var url = window.location.href + '/allcheck';
+    var url = $('#all1').val();
+    var from = $('#date_from').val();
+    var to = $('#date_to').val(); // var url = window.location.href + '/allcheck';
 
     $t = $(this);
     $.ajax({
       url: url,
-      data: {},
+      data: {
+        from: from,
+        to: to
+      },
       success: function success(data) {
         if (data["status"] == "check") {
           $("input[type='checkbox']").prop("checked", true);

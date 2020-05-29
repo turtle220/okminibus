@@ -100,6 +100,13 @@
 
 }
 
+.header {
+    display: flex;
+    width: max-content; 
+    justify-content: start;
+    margin: 0;
+    align-items: flex-start;
+}
 
 
 </style>
@@ -210,7 +217,7 @@
 
 <div class="animated fadeIn">
 
-	<div class="margin-right margin-bottom">
+	<div class="margin-right margin-bottom header" >
 
 	<button class="header-button btn-ExtrAdd pull-left margin-bottom margin-right" onClick="EditBookingTicket('')"><i class="fa fa-plus"></i>&nbsp{{ __('custom.newticket') }}</button>
 
@@ -228,7 +235,54 @@
 
     </form>
 
-   
+    <form action="{{ url('BookingTickets') }}" method="get" style="width:max-content">
+
+        <div class="col-md-5">
+
+            <div class="col-md-3">
+
+
+                <label class="padding-top-5" style="font-weight:400;">{{__('custom.from')}}:</label>
+
+
+            </div>
+
+            <div class="col-md-9" >
+
+                <input type="date" class="form-control"  value="{{old('from')}}" name="from" style="width: max-content;">
+
+
+            </div>
+
+        </div>
+
+        <div class="col-md-5">
+
+
+            <div class="col-md-3">
+
+
+            <label class="padding-top-5" style="font-weight:400">{{__('custom.to')}}:</label>
+
+
+            </div>
+
+            <div class="col-md-9">
+
+                <input type="date" class="form-control" value="{{old('to')}}" name="to" style="width: max-content;">
+
+            </div>
+
+
+        </div>
+
+        <div class="col-md-2">
+
+            <button type="submit" class="header-button pull-left margin-right" style="display:flex;"><i class="fa fa-search"></i> &nbsp;{{__('custom.search') }}</button>
+
+        </div>
+
+    </form>
 
     
 
@@ -275,14 +329,14 @@
 
                                 <th>
                                     <div class="pretty p-icon  p-locked all">
-                                                            <input type="checkbox"  @if($allStatus == true)checked @endif>
-                                                            
-                                                            <div class="state p-success">
-                                                                <i class="icon fa fa-check"></i>
-                                                                <label></label>
-                                                            </div>
-                                                            
-                                                            </div> 
+                                        <input type="checkbox"  @if($allStatus == true)checked @endif>
+                                        
+                                        <div class="state p-success">
+                                            <i class="icon fa fa-check"></i>
+                                            <label></label>
+                                        </div>
+                                        
+                                        </div> 
                                     </th>
 
                             </tr>
@@ -560,7 +614,6 @@
             </div>
 
 
-
             <div class="form-group">
 
               <label>{{__('custom.carname')}}:</label>
@@ -729,7 +782,6 @@
 
                             // $("#StatusId").val(optionValue).find("option[value=" + optionValue +"]").attr('selected', true);
 
-                            
 
                             $('#sHotel').val(data['BookingTickets']['Hotel']);
 
@@ -774,9 +826,6 @@
                              $('#slastname').val(data['BookingTickets']['lastname']);
 
                           
-
-
-
                             var length = data['areas'].length;
 
                             var firstFlag = true;
@@ -784,7 +833,6 @@
                             for(var i = 0; i < length; i++)
 
                             {
-
 
 
                                if(data['BookingTickets']['destination'] == data['areas'][i]['name'])

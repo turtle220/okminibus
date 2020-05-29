@@ -20,8 +20,7 @@
                 <input type="submit" class="hidden" id="invoice-submit">
             </form>
 
-            <form action="{{ url('invoice') }}" method="get">
-
+            <form action="{{ url('invoice') }}" method="get" style="width:max-content">
                 <div class="col-md-5">
 
                     <div class="col-md-3">
@@ -32,9 +31,9 @@
 
                     </div>
 
-                    <div class="col-md-9">
+                    <div class="col-md-9" >
 
-                        <input type="date" class="form-control"  value="{{old('from')}}" name="from">
+                        <input type="date" class="form-control"  value="{{old('from')}}" name="from" style="width: max-content;">
 
 
                     </div>
@@ -54,7 +53,7 @@
 
                     <div class="col-md-9">
 
-                        <input type="date" class="form-control" value="{{old('to')}}" name="to">
+                        <input type="date" class="form-control" value="{{old('to')}}" name="to" style="width: max-content;">
 
                     </div>
 
@@ -105,8 +104,9 @@
                                 <th>{{ __('custom.viewinvoice') }}</th>
                                 <th>
                                     <div class="pretty p-icon  p-locked all1">
-                                        <input type="checkbox"  @if($allStatus == true)checked @endif>
-                                        
+                                        <input type="checkbox" @if($allStatus == true)checked @endif>
+                                        <input type="hidden" id="date_from" name="from" value="{{ Request::get('from')}}" />
+                                        <input type="hidden" id="date_to" name="to" value="{{ Request::get('to')}}" />
                                         <div class="state p-success">
                                             <i class="icon fa fa-check"></i>
                                             <label></label>

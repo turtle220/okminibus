@@ -154,7 +154,7 @@
 
         <div class="col-md-2">
 
-          TRASLADO: <!--transfer-->
+          Servicio: <!--transfer-->
 
         </div>
 
@@ -165,9 +165,19 @@
         </div>
 
         <div class="col-md-2" style="margin-left: 34%;">
-
-          DISPOSICION: <!--disposition-->
-
+          @if ($data[0]->TypeId == 'A')
+         
+            Traslado
+          @endif
+          @if ($data[0]->TypeId == 'S')
+            Salida 
+          @endif
+          @if ($data[0]->TypeId == 'D')
+            Disposicion
+          @endif
+          @if ($data[0]->TypeId == 'L')
+            Llegada
+          @endif
         </div>
 
         <div class="col-md-2">
@@ -230,7 +240,7 @@
 
         <div class="col-md-4 border-bottom padding-bottom" style="display: inline-block;">
 
-          <div class="col-md-2">FETCHA:</div>
+          <div class="col-md-2">FECHA:</div>
 
           <div class="col-md-2">
 

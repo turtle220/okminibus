@@ -45,6 +45,7 @@ Auth::routes();
 	Route::get('/', 'BookingController@index');
 
 Route::get("BookingTickets/show", "BookingController@show");
+Route::get("BookingTickets", "BookingController@index");
 
 Route::get("BookingTickets/edit", "BookingController@edit");
 
@@ -69,8 +70,8 @@ Route::get("BookingTickets/allcheck", "BookingController@allCheck");
 
 Route::get("invoice", "InvoiceController@index");
 
-Route::get("invoice/edit", "InvoiceController@edit");
 
+Route::get("invoice/edit", "InvoiceController@edit");
 Route::post("invoice/update", "InvoiceController@update");
 
 Route::post("invoice/pdf", "InvoiceController@invoiceToPdf");
@@ -125,7 +126,8 @@ Route::get('excel', 'ExcelController@index');
 
 // Route::post('excel/print/admin',  'ExcelController@printAdmin()');
 
-Route::post('excel/print','ExcelController@printExcel');
+// Route::post('excel/print','ExcelController@printExcel');
+Route::post('excel/print','ExcelController@printexcel_hoja');
 
 Route::get('/getuserlistajax', 'UserController@getUserListAjax');
 

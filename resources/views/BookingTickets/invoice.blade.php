@@ -169,7 +169,7 @@
       <div class="col-md-3"></div>
       <div class="col-md-4">FACTURA SIMPLIFICADA</div>
       <div class="col-md-4"></div>
-      <div class="col-md-1 red">No {{$data[0]->id}}</div>
+      <div class="col-md-1 red">No {{$data[0]->Num_Fac}}</div>
     </div>
     <div class="row border-bottom">
       <div class="col-md-1"> 
@@ -202,32 +202,24 @@
 
         <div class="col-md-2">
 
-          TRASLADO: <!--transfer-->
+        Servicio: <!--transfer-->
 
         </div>
 
         <div class="col-md-2">
-	  @if ($data[0]->TypeId == 'A')
-	   <input type="text" name="transfer" class="form-control" readonly value="Traslado"> 
+          @if ($data[0]->TypeId == 'A')
+          <input type="text" name="transfer" class="form-control" readonly value="Traslado"> 
 
-			
-	  @else
-	   <input type="text" name="transfer" class="form-control" readonly value="Disposicion"> 
-	 @endif
-	
-          
-        </div>
-
-        <div class="col-md-2">
-
-          DISPOSICION: <!--disposition-->
-
-        </div>
-
-        <div class="col-md-2">
-
-          <input type="text" name="disposicion" class="form-control" readonly value="">
-
+          @endif
+          @if ($data[0]->TypeId == 'S')
+          <input type="text" name="transfer" class="form-control" readonly value="Salida"> 
+          @endif
+          @if ($data[0]->TypeId == 'D')
+          <input type="text" name="transfer" class="form-control" readonly value="Disposicion"> 
+          @endif
+          @if ($data[0]->TypeId == 'L')
+          <input type="text" name="transfer" class="form-control" readonly value="Llegada"> 
+          @endif
         </div>
 
       </div>
@@ -284,7 +276,7 @@
 
         <div class="col-md-4 border-bottom padding-bottom">
 
-          <div class="col-md-2">FETCHA: </div>
+          <div class="col-md-2">FECHA: </div>
 
           <div class="col-md-2">
 

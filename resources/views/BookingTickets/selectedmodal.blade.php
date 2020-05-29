@@ -120,12 +120,12 @@
 
 			      	<select id="sTypeId" name="TypeId" class="form-control">	
 
-			      		<option value="A">{{__('custom.Arrival')}}</option>
+			      		<option value="A">Traslado</option>
 
-						<option value="D">{{__('custom.Exit')}}</option>
+						<option value="D">Disposicion</option>
 
-				
-
+						<option value="S">Salida</option>
+						<option value="L">Llegada</option>
 			      	</select>
 
 	      		</div>
