@@ -47,13 +47,19 @@ class BookingController extends Controller
 
 
     public $Types = [
-       
-        "A"=>"Llegada",
-	    "D" => "Salida",
-	    "L" => "Disposicion",
-	    "S" => "Traslado",
+
+            "A"=>"Traslado",
+	    "D" => "Disposicion",
+	    "L" => "Legada",
+	    "S" => "Salida",
+	   
 
     ]; 
+
+
+
+
+
 
 
     public function __construct() {
@@ -66,14 +72,12 @@ class BookingController extends Controller
 
 
 
-    public function index($order=1, $filter="0", $search="" ,Request $request)
+    public function index($order=1, $filter="0", $search="")
 
     {
-        $request->flash();
 
-        $from = $request->from;
-        $to = $request->to;
-        $tickets = $this->getListTicket($from, $to);
+        $tickets = $this->getListTicket();
+
 
 
         $BookingTickets = [ "BTicketId",
@@ -91,6 +95,10 @@ class BookingController extends Controller
         
 
         $order = intval($order,10);
+
+        
+
+        
 
         if($filter=="0")
 
@@ -132,7 +140,13 @@ class BookingController extends Controller
 
         {
 
+
+
             $BookingTickets2[$x] = $BookingTickets[$x]->toArray();
+
+            
+
+           
 
         }       
 
@@ -147,7 +161,7 @@ class BookingController extends Controller
         $areas = Area::get();    
 
         $cars  = Bus::get();
-	    $allStatus = false;
+	$allStatus = false;
         $userId = Auth::user()->id;
         $check = CheckMangement::where('user_id', $userId)
                                 ->where('deleted_at', NULL);
@@ -159,7 +173,6 @@ class BookingController extends Controller
             
             
         }
-      
     	return view('BookingTickets.booking', [ 'values' => $tickets,
 
                                                 'BookingTickets'   => $BookingTickets,
@@ -201,10 +214,10 @@ class BookingController extends Controller
 
 
 
-    public function getListTicket($from, $to)
+    public function getListTicket()
 
     {
-		
+
         $role = Auth::user()->role;
 
         $userid = Auth::user()->id;
@@ -243,65 +256,33 @@ class BookingController extends Controller
 
             case 2:
 
-                if(isset($from) && isset($to)){
-                    $results = BookingTicket::leftJoin('users', 'booking_tickets.user_id', '=', 'users.id')
+                $results = BookingTicket::leftJoin('users', 'booking_tickets.user_id', '=', 'users.id')
 
-                    ->leftJoin('checkmangements',function ($join) use ($userid){
+                                          ->leftJoin('checkmangements',function ($join) use ($userid){
 
-                             $join->on('booking_tickets.id', '=' , 'checkmangements.bookingticket_id') ;
+                                                   $join->on('booking_tickets.id', '=' , 'checkmangements.bookingticket_id') ;
 
-                             $join->where('checkmangements.user_id','=', $userid) ;
+                                                   $join->where('checkmangements.user_id','=', $userid) ;
 
-                          })
+                                                })
 
-                     ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
+                                           ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
 
-                      ->select('users.name', 'booking_tickets.*', 'checkmangements.id as checkstatus', 'buses.carnumber')
+                                            ->select('users.name', 'booking_tickets.*', 'checkmangements.id as checkstatus', 'buses.carnumber')
 
-                    ->where('booking_tickets.user_id', $userid)
-                    ->whereDate('booking_tickets.created_at','<=', $to)
+                                          ->where('booking_tickets.user_id', $userid)
 
-                    ->whereDate('booking_tickets.created_at', '>=', $from)
-    
-                        ->select('users.name', 'booking_tickets.*', 'checkmangements.id as checkstatus')
+                                          ->select('users.name', 'booking_tickets.*', 'checkmangements.id as checkstatus')
 
-                        ->latest()
+                                          ->latest()
 
-                        ->orderby('booking_tickets.Name')
+                                          ->orderby('booking_tickets.Name')
 
-                        ->get(); 
+                                          ->get(); 
 
 
-                    break;
-                } else{
-                    $results = BookingTicket::leftJoin('users', 'booking_tickets.user_id', '=', 'users.id')
 
-                        ->leftJoin('checkmangements',function ($join) use ($userid){
-
-                                $join->on('booking_tickets.id', '=' , 'checkmangements.bookingticket_id') ;
-
-                                $join->where('checkmangements.user_id','=', $userid) ;
-
-                            })
-
-                        ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
-
-                            ->select('users.name', 'booking_tickets.*', 'checkmangements.id as checkstatus', 'buses.carnumber')
-
-                            ->where('booking_tickets.user_id', $userid)
-        
-                            ->select('users.name', 'booking_tickets.*', 'checkmangements.id as checkstatus','buses.carnumber')
-
-                            ->latest()
-
-                            ->orderby('booking_tickets.Name')
-
-                            ->get(); 
-                     
-      
-                    break;
-                }
- 
+                break;
 
             case 3:
 
@@ -420,6 +401,13 @@ class BookingController extends Controller
 
     { 
 
+      
+
+       
+
+
+
+
 
         if(($_GET["BTicketId"]== "")
 
@@ -464,6 +452,13 @@ class BookingController extends Controller
         $areas = Area::get(); 
 
         $cars  = Bus::get();
+
+        
+
+
+
+
+
 
 
         return view('BookingTickets/show', [

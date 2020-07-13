@@ -27,6 +27,7 @@ jQuery(document).ready(function($) {
 		$('.search-trigger').parent('.header-left').removeClass('open');
 	});
 
+	
 	// $('.user-area> a').on('click', function(event) {
 	// 	event.preventDefault();
 	// 	event.stopPropagation();

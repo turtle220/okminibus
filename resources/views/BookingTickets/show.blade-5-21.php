@@ -57,10 +57,7 @@
 	      	<div class="fieldsRow">
 
 	      		<div class="fieldsLabel">{{__('custom.type')}}:</div><div class="fieldsValue">
-				@if($BookingTicket->TypeId == 'A')Traslado @endif
-				@if($BookingTicket->TypeId == 'S')Salida @endif
-				@if($BookingTicket->TypeId == 'D')Disposicion @endif
-				@if($BookingTicket->TypeId == 'L')Llegada @endif
+				@if($BookingTicket->TypeId == 'A'){{__('custom.Arrival') }}@elseif($BookingTicket->TypeId == 'D'){{__('custom.Exit')}} @endif
 		        
 
 			</div>
@@ -133,7 +130,7 @@
 
 	      		<div class="fieldsValue"><!--PAX-->
 
-					{{ $BookingTicket->destination }}
+					{{ $BookingTicket->[destination][1] }}
 
 				</div>
 

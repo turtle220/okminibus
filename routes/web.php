@@ -70,8 +70,8 @@ Route::get("BookingTickets/allcheck", "BookingController@allCheck");
 
 Route::get("invoice", "InvoiceController@index");
 
-
 Route::get("invoice/edit", "InvoiceController@edit");
+
 Route::post("invoice/update", "InvoiceController@update");
 
 Route::post("invoice/pdf", "InvoiceController@invoiceToPdf");

@@ -8,12 +8,18 @@
     $('#bootstrap-data-table').DataTable({
         lengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]],
     });
-
     $('#bootstrap-data-table-export').DataTable({
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+		buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+		// order: [[ 0, "desc" ]]
     });
 
+    $('#bootstrap-data-table-excel-export').DataTable({
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+		buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+		order: [[ 0, "desc" ]]
+	});
+	
 	$('#row-select').DataTable( {
         initComplete: function () {
 				this.api().columns().every( function () {
@@ -33,8 +39,12 @@
 					column.data().unique().sort().each( function ( d, j ) {
 						select.append( '<option value="'+d+'">'+d+'</option>' )
 					} );
+					
 				} );
 			}
 		} );
+
+
+	
 
 })(jQuery);

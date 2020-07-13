@@ -21,6 +21,7 @@
             </form>
 
             <form action="{{ url('invoice') }}" method="get" style="width:max-content">
+
                 <div class="col-md-5">
 
                     <div class="col-md-3">
@@ -96,21 +97,16 @@
                     	<thead>
                             <tr>
                             	<th>{{ __('custom.no') }}</th>
-                                <th>Num.Fac</th>
                                 <th>{{ __('custom.name') }}</th>
                                 <th>{{ __('custom.date') }}</th>
                                 <th>{{ __('custom.amount') }}</th>
-
-                                <th>{{ __('custom.origin') }}</th>
                                 <th>{{ __('custom.destination') }}</th>
-                                <th>{{ __('custom.time') }}</th>
                                 <th>{{ __('custom.provider') }}</th>
                                 <th>{{ __('custom.viewinvoice') }}</th>
                                 <th>
                                     <div class="pretty p-icon  p-locked all1">
                                         <input type="checkbox"  @if($allStatus == true)checked @endif>
-                                        <input type="hidden" id="date_from" name="from" value="{{ Request::get('from')}}" />
-                                        <input type="hidden" id="date_to" name="to" value="{{ Request::get('to')}}" />
+                                        
                                         <div class="state p-success">
                                             <i class="icon fa fa-check"></i>
                                             <label></label>
@@ -120,20 +116,16 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody style="line-height: 1.0;">
+                        <tbody>
                         	<?php $i =1; ?>
                         	@foreach($values as $val) 
 	                        	<tr>
 	                        		<input type="hidden" name="userId" class="user_id" value="{{$val->id}}">
 	                        		<td>{{ $i }}</td>
-	                            	<td>{{ $val->Num_Factura }}</td>
 	                            	<td>{{ $val->Name }}</td>
 	                                <td>{{ $val->BTDate }}</td>
 	                                <td>{{ $val->Price }}</td>
-	                                <td>{{ $val->origin }}</td>
-
 	                                <td>{{ $val->Hotel }}</td>
-	                                <td>{{ $val->BTTime }}</td>
 									<td>{{ $val->name}}</td>
 	                                <td>
 	                                	<form method="POST" action="{{ url('viewinvoice') }}">

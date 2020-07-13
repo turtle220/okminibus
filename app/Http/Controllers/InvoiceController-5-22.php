@@ -469,76 +469,41 @@ class InvoiceController extends Controller
         $userId = Auth::user()->id;
 		$from = $request->from;
 		$to = $request->to;
-		// var_dump($from);
-		
+
         $ticketId = $request->id;
 
         $check = DB::table('checkinvoices')->where('user_id', $userId)
-								->where('deleted_at', NULL);
-		if($from == NULL || $to == NULL){
+                                ->where('deleted_at', NULL);
+		$booking = BookingTicket::where('user_id', $userId)
+								->whereDate('booking_tickets.created_at','<=', $to)
+
+								->whereDate('booking_tickets.created_at', '>=', $from)
+                                ->where('deleted_at',NULL);
+
+        if($check->count() == $booking->count())
+        {
+            $check->delete();
+            
+            return response()->json(['stauts' => 'uncheck']);
+        }else
+        {
+            $check->delete();
 			$booking = BookingTicket::where('user_id', $userId)
+								->whereDate('booking_tickets.created_at','<=', $to)
 
-			->where('deleted_at',NULL);
+								->whereDate('booking_tickets.created_at', '>=', $from)
+								->get();
+            foreach($booking as $val)
+            {
+             
+				$checkinvoice =DB::table('checkinvoices')->insert([
+					'user_id' => $userId,
+					'invoice_id' => $val->id
+				]);
+            }
+            
 
-			
-			if($check->count() == $booking->count())
-			{
-				$check->delete();
-				
-				return response()->json(['stauts' => 'uncheck']);
-			}else
-			{
-				$check->delete();
-				$booking = BookingTicket::where('user_id', $userId)
-									
-									->get();
-				foreach($booking as $val)
-				{
-				 
-					$checkinvoice =DB::table('checkinvoices')->insert([
-						'user_id' => $userId,
-						'invoice_id' => $val->id
-					]);
-				}
-				
-	
-				return response()->json(['status' => 'check']); 
-			}
-		}else{
-			$booking = BookingTicket::where('user_id', $userId)
-			->whereDate('booking_tickets.created_at','<=', $to)
-
-			->whereDate('booking_tickets.created_at', '>=', $from)
-			->where('deleted_at',NULL);
-
-			if($check->count() == $booking->count())
-			{
-				$check->delete();
-				
-				return response()->json(['stauts' => 'uncheck']);
-			}else
-			{
-				$check->delete();
-				$booking = BookingTicket::where('user_id', $userId)
-									->whereDate('booking_tickets.created_at','<=', $to)
-	
-									->whereDate('booking_tickets.created_at', '>=', $from)
-									->get();
-				foreach($booking as $val)
-				{
-				 
-					$checkinvoice =DB::table('checkinvoices')->insert([
-						'user_id' => $userId,
-						'invoice_id' => $val->id
-					]);
-				}
-				
-	
-				return response()->json(['status' => 'check']); 
-			}
-		}
-
-		
-
+            return response()->json(['status' => 'check']); 
+        }
     }
 }

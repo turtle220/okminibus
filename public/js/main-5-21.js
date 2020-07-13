@@ -1,6 +1,11 @@
 $(document).ready(function($) {
 
 
+
+
+
+
+
     //uploading
 
     toastr.options = {
@@ -78,6 +83,7 @@ $(document).ready(function($) {
             data: {
 
 
+
                 id: $(this).parents('tr').find('input').val(),
 
 
@@ -89,13 +95,17 @@ $(document).ready(function($) {
 
 
 
+
             },
+
 
 
             success: function(data) {
 
 
+
                 if (data['success'] == "true")
+
 
 
                 {
@@ -152,29 +162,53 @@ $(document).ready(function($) {
 
 
 
+
+
+
+
     $('.update-save').click(function() {
+
 
 
         $('#update-invoice').trigger("click");
 
 
+
     });
 
+
+
+
+
+
+
     $(function() {
+
 
 
         modal1Dismiss();
 
 
+
     });
+
+
+
+
+
 
 
     $('#username').change(function() {
 
 
+
         $('#name').val($('#username').val());
 
+
+
         $('#invoice-submit').trigger("click");
+
+
 
     });
 
@@ -280,8 +314,6 @@ $(document).ready(function($) {
         $('.loading-overlay').show();
         var url = $('#all1').val();
 
-        var from = $('#date_from').val();
-        var to = $('#date_to').val();
         // var url = window.location.href + '/allcheck';
         $t = $(this);
 
@@ -289,8 +321,7 @@ $(document).ready(function($) {
         $.ajax({
             url: url,
             data: {
-                from: from,
-                to: to
+
             },
             success: function(data) {
                 if (data["status"] == "check") {
@@ -497,7 +528,14 @@ function resavecar() {
                 $("#scar").append('<option  selected value=' + id + '>' + car + '</option>');
 
 
+
+
+
+
+
                 $('#scarmodal').modal('toggle');
+
+
 
             } else
 
@@ -506,6 +544,8 @@ function resavecar() {
                 var msg = $('#successMsg').val();
 
                 toastr["error"](msg);
+
+
 
             }
 
@@ -526,36 +566,78 @@ function resavecar() {
 }
 
 
+
+
+
 function inVoiceList()
+
 
 
 {
 
+
+
     var name = $('#username').val();
+
+
 
     var url = $('#invoicelist-pdf').val();
 
+
+
     $.ajax({
+
+
 
         url: url,
 
+
+
         method: "post",
+
+
 
         data: {
 
+
+
             name: name
+
+
 
         },
 
+
+
         success: function(data) {
+
+
 
             console.log(data);
 
+
+
         }
+
+
+
+
+
+
+
+
+
+
 
     })
 
+
+
 }
+
+
+
+
 
 function resavearea()
 
@@ -563,28 +645,57 @@ function resavearea()
 
     var destination = $('input[name=sdestination]').val();
 
+
+
+
+
+
+
     var url = $('#area-store').val();
+
 
 
     $.ajax({
 
+
+
         url: url,
+
+
 
         method: "GET",
 
+
+
         data: {
+
+
 
             destination: destination
 
+
+
         },
+
+
 
         success: function(data) {
 
+
+
             if (data['success'] == "true")
+
+
 
             {
 
+
+
                 var area = data['curarea'];
+
+
+
+
 
                 $("#sdestination").attr('disabled', false);
 
@@ -918,6 +1029,8 @@ function ShowBookingTicket(BTicketId)
 
 {
 
+
+
     var url = $('#BookingTickets-show').val();
 
 
@@ -1048,7 +1161,7 @@ function SaveBookingTicket(BTicketId)
 
         var form = document.getElementById('ModalForm');
 
-        // console.log(form, "form----------------");
+
 
         var howMany = form.elements.length;
 

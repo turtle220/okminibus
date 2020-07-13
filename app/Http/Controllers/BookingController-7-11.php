@@ -48,10 +48,10 @@ class BookingController extends Controller
 
     public $Types = [
        
-        "A"=>"Llegada",
-	    "D" => "Salida",
-	    "L" => "Disposicion",
-	    "S" => "Traslado",
+        "L"=>"Llegada",
+	    "S" => "Salida",
+	    "D" => "Disposicion",
+	    "T" => "Traslado",
 
     ]; 
 
@@ -670,7 +670,7 @@ class BookingController extends Controller
 
         // {
 
-
+            var_dump($request);
 
             $Error = false;
 
@@ -950,9 +950,8 @@ class BookingController extends Controller
 
             $customer = DB::table('users')->where('name', $data[0]->Name)->get();
 
-                return view('BookingTickets.invoice', ['data'=>$data, 'customer'=>$customer]);
-
-        
+            // echo "dfdfdf".$data;
+                return view('BookingTickets.invoice', ['data'=>$data, 'customer'=>$customer]);        
 
         }
 
@@ -1227,6 +1226,7 @@ class BookingController extends Controller
         return $result;
 
     }
-
+    
+  
 }
 

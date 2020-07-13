@@ -136,7 +136,7 @@
 
 <div class="container  excel-wrap">
     <div class="row title"> 
-     <img style="left:10px;width: 100%;" src="{{ asset('images/itt_New.jpg') }}"/>
+     <img style="left:10px;width: 100%;" src="{{ asset('images/itt.jpg') }}"/>
     </div>
     <div class="row title">
     </div>
@@ -147,75 +147,6 @@
     </div>
 
     
-    <!--test Factura -->
-    <div class="row border-bottom padding-bottom">
-
-      <div class="col-md-12"> 
-
-        <div class="col-md-2">
-
-          NUM.FACTURA:
-
-        </div>
-
-        <div class="col-md-10" style="display: inline-block;">
-
-          <!-- {{$data[0]->No}} -->
-           {{$data[0]->Num_Factura}} 
-
-        </div>
-
-      </div>
-
-    </div>
-<!-- end Factura -->    
-    
-    
-    <!-- name -->
-    <div class="row border-bottom padding-bottom">
-
-      <div class="col-md-12"> 
-
-        <div class="col-md-2">
-
-          Nombre:
-
-        </div>
-
-        <div class="col-md-10" style="display: inline-block;">
-
-          {{$data[0]->Name}}
-
-        </div>
-
-      </div>
-
-    </div>
-<!-- end name -->
-    
-    <!-- passport -->
-    <div class="row border-bottom padding-bottom">
-
-      <div class="col-md-12"> 
-
-        <div class="col-md-2">
-
-          D.N.I:
-
-        </div>
-
-        <div class="col-md-10" style="display: inline-block;">
-
-          {{$data[0]->Passport}}
-
-        </div>
-
-      </div>
-
-    </div>
-<!-- end passport -->
-    
-    
 
     <div class="row border-bottom ">
 
@@ -223,7 +154,7 @@
 
         <div class="col-md-2">
 
-          Servicio: <!--transfer-->
+          TRASLADO: <!--transfer-->
 
         </div>
 
@@ -234,19 +165,9 @@
         </div>
 
         <div class="col-md-2" style="margin-left: 34%;">
-          @if ($data[0]->TypeId == 'A')
-         
-            Traslado
-          @endif
-          @if ($data[0]->TypeId == 'S')
-            Salida 
-          @endif
-          @if ($data[0]->TypeId == 'D')
-            Disposicion
-          @endif
-          @if ($data[0]->TypeId == 'L')
-            Llegada
-          @endif
+
+          DISPOSICION: <!--disposition-->
+
         </div>
 
         <div class="col-md-2">
@@ -303,13 +224,13 @@
 
     </div>
 
-    
-    
+
+
     <div class="row  ">
 
         <div class="col-md-4 border-bottom padding-bottom" style="display: inline-block;">
 
-          <div class="col-md-2">FECHA:</div>
+          <div class="col-md-2">FETCHA:</div>
 
           <div class="col-md-2">
 

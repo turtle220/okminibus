@@ -76,8 +76,6 @@
 
 	      		</div>
 
-	      		
-
 	      	</div>
 
 	        <div class="fieldsRow">
@@ -127,17 +125,17 @@
 
 	      		<div class="fieldsLabel">{{__('custom.type')}}:</div><div class="fieldsValue"><!--Tipo-->
 
-			      	<select id="TypeId" name="TypeId" class="form-control">	
+			      	<select id="TypeId" name="TypeId" class=" form-control">	
 
 						@foreach ($Types as $key => $value)
 
   							@if ($BookingTicket->TypeId == $key)
 
-								<option value="{{$key}}" selected>{{$value}}</option>
+								<option value="{{$value}}" selected>{{$value}}</option>
 
   							@else
 
-								<option value="{{$key}}">{{$value}}</option>
+								<option value="{{$value}}">{{$value}}</option>
 
   							@endif  
 
@@ -216,9 +214,6 @@
 	      		
 
 	      	</div>
-
-
-
 	      	<div class="fieldsRow">
 
 	      		
@@ -247,10 +242,6 @@
 
 	      		</div>
 
-	      		
-
-	      	
-
 	      		<!-- <div class="fieldsLabel">{{__('custom.provision')}}:</div><div class="fieldsValue"> --><!--Disposicion-->
 
 					<!-- <input id="provision" name="provision" type="text" class="form-control" placeholder="Introduce Disposicion" value="{{ $BookingTicket->Price }}" />
@@ -274,22 +265,6 @@
 	      		
 
 	      	</div>
-
-
-
-	      		
-
-	      	
-
-	      	
-
-	      	
-
-		     	
-
-	      	
-
-	      	
 
 	      </div>
 

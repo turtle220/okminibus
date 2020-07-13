@@ -99,15 +99,15 @@
       <div class="col-md-3"></div>
       <div class="col-md-4">FACTURA SIMPLIFICADA</div>
       <div class="col-md-3"></div>
-	  <div class="col-md-2 red" style="display:flex">No <input type="text" class="form-control" name="origin" class="form-control" value="{{$value[0]->Num_Fac}}"></div>
+	  <div class="col-md-2 red" style="display:flex">No <input type="text" class="form-control" name="origin" class="form-control" value="{{$value[0]->id}}"></div>
     </div>
     <div class="row border-bottom">
       <div class="col-md-1"> 
       CLIENTE:
       </div>
       <div class="col-md-3">
-		  <input type="text" class="form-control" name="Name" class="form-control" value="{{ $value[0]->Name}}">
-
+	  <input type="text" class="form-control" name="origin" class="form-control" value="{{$value[0]->Name}}">
+       
       </div>
     </div>
 
@@ -116,8 +116,7 @@
       D.N.I:
       </div>
       <div class="col-md-3">
-	  <input type="text" class="form-control" name="passport" class="form-control" value="{{ $value[0]->Passport}}">
-       
+       {{ $value[0]->Passport}}
       </div>
     </div>
     <div class="row title"> 
@@ -131,25 +130,20 @@
 		<div class="row border-bottom ">
 			<div class="col-md-10 ">
 				<div class="col-md-2">
-					Servicio: <!--transfer-->
+					TRASLADO: <!--transfer-->
 				</div>
-
-				
 				<div class="col-md-2">
-					<select name="type" class="form-control" style="border-bottom:0px !important; width: max-content;">
-						<option value="T" @if($value[0]->TypeId == 'T')selected @endif>Traslado</option>	
-						<option value="D" @if($value[0]->TypeId == 'D')selected @endif>Disposicion</option>	   
-
-						<option value="L"  @if($value[0]->TypeId == 'L')selected @endif>Llegada</option>	   
-						<option value="S"  @if($value[0]->TypeId == 'S')selected @endif>Salida</option>	  
-
-						
+					<select name="type" class="form-control" style="border-bottom:0px !important">
+						<option value="A" @if($value[0]->TypeId == 'A')selected @endif>Traslado</option>	
+					 	<option value="D" @if($value[0]->TypeId == 'D')selected @endif>Disposicion</option>	   
 					</select>
 				</div>
-<!-- 				
+				<div class="col-md-2">
+					DISPOSICION: <!--disposition-->
+				</div>
 				<div class="col-md-2">
 					<input type="text" name="disposicion" class="form-control">
-				</div> -->
+				</div>
 			</div>
 		</div>
 
@@ -177,7 +171,7 @@
 
 		<div class="row  ">
 				<div class="col-md-4 border-bottom padding-bottom">
-					<div class="col-md-4 margin-top-4">FECHA:</div>
+					<div class="col-md-4 margin-top-4">FETCHA:</div>
 					<div class="col-md-8">
 						<input type="form-control"class="form-control" name="BTDate" value="{{$value[0]->BTDate}}">
 					</div>
@@ -195,7 +189,7 @@
 		<div class="row ">
 			<div class="col-md-12">
 	
-			<input type="form-control"  class="form-control" value="IMPORTE(10% IVA INCLUIDO)">
+			<input type="form-control"  class="form-control" name="BTTime" value="IMPORTE(10% IVA INCLUIDO)">
 			</input>
 
 					<textarea name="price" rows="10" class="width-100">{{$value[0]->Price}}

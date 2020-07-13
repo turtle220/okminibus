@@ -81,7 +81,7 @@ class ExcelController extends Controller
                     ->select('users.name', 'booking_tickets.*', 'buses.carnumber', 'buses.carname')
 
                     ->whereDate('booking_tickets.created_at','<=', $to)
-                    ->orderBy('booking_tickets.created_at', 'desc')
+
                     ->whereDate('booking_tickets.created_at', '>=', $from);
 
                       
@@ -115,7 +115,7 @@ class ExcelController extends Controller
                     ->whereDate('booking_tickets.created_at','<=', $to)
 
                     ->whereDate('booking_tickets.created_at', '>=', $from)
-                    ->orderBy('booking_tickets.created_at', 'desc')
+
                     ->where('booking_tickets.user_id', Auth::user()->id);
 
                 
@@ -126,13 +126,21 @@ class ExcelController extends Controller
 
                   $data =  $data->where('booking_tickets.Name', $request->username);
 
+
+
                 }
+
+
 
                 $count = $data->count();
 
                 $result = $data->get();
 
             }
+
+
+
+
 
         }else
 
@@ -144,6 +152,9 @@ class ExcelController extends Controller
 
             {//admin case
 
+              
+
+
 
                 if($request->username == '0' )
 
@@ -154,8 +165,10 @@ class ExcelController extends Controller
                                                       ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
 
                                                       ->select('users.name', 'booking_tickets.*', 'buses.carnumber', 'buses.carname')
-                                                      ->orderBy('booking_tickets.created_at', 'asc')
+
                                                       ->get();
+
+
 
                     $count = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
 
@@ -171,6 +184,8 @@ class ExcelController extends Controller
 
                 {
 
+
+
                     $result =DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
 
                                                       ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
@@ -178,8 +193,10 @@ class ExcelController extends Controller
                                                       ->select('users.name', 'booking_tickets.*', 'buses.carnumber', 'buses.carname')
 
                                                       ->where('booking_tickets.Name', $request->username)
-                                                      ->orderBy('booking_tickets.created_at', 'asc')
+
                                                       ->get();
+
+
 
                     $count = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
 
@@ -190,7 +207,10 @@ class ExcelController extends Controller
                                                       ->where('booking_tickets.Name', $request->username)
 
                                                       ->count();
+
                 }
+
+
 
             }else
 
@@ -204,16 +224,30 @@ class ExcelController extends Controller
 
                                                       ->where('booking_tickets.user_id', Auth::user()->id);
 
+                
+
+
+
                 if($request->username == 0 )
 
                 {
-                     $data  = $data->where('booking_tickets.Name', $request->username)
-                                 ->orderBy('booking_tickets.created_at', 'desc');
+
+                     $data  = $data->where('booking_tickets.Name', $request->username);
 
                 }
+
+               
+
+                                    
+
+
+
                 $count = $data->count();
 
                 $result = $data->get();
+
+
+
             }
 
         }
@@ -242,7 +276,8 @@ class ExcelController extends Controller
 
     //    var_dump($result);
     //    var_dump($count);
-        // sort($result);
+
+
     	return view('excel.excel', ['values' => $result, 
 
                                     'count' => $count,
@@ -259,13 +294,13 @@ class ExcelController extends Controller
 
     }
 
+
+
     //admin 
     public function printexcel_hoja(Request $request)
     {
     	$name = $request->name;
 
-        $to= $request->to;
-        $from = $request->from;
 		if(Auth::user()->role == 1)
 		{
 			if($name==""||$name== '0')
@@ -293,9 +328,7 @@ class ExcelController extends Controller
 			{
                 $data = DB::table('booking_tickets')->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
                     ->where('booking_tickets.user_id', $user->id)
-                    ->whereDate('booking_tickets.created_at','<=', $to)
-
-                    ->whereDate('booking_tickets.created_at', '>=', $from)
+                  
                     ->select('booking_tickets.*', 'buses.carnumber', 'buses.carname')
                 
                     ->get();
@@ -326,23 +359,28 @@ class ExcelController extends Controller
 
     {//by date
 
+
+
       $from = $request->from;
 
       $to  = $request->to;
 
         if($user->role == 1)
+
         {//admin case 
+
             $data = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
 
                                                 ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
 
-                                                ->select('users.name', 'booking_tickets.*', 'buses.carnumber', 'buses.carname')
+                                                      ->select('users.name', 'booking_tickets.*', 'buses.carnumber', 'buses.carname')
 
                                                 ->whereDate('booking_tickets.created_at','<=', $to)
 
                                                 ->whereDate('booking_tickets.created_at', '>=', $from);
 
                   
+
             if(!empty($request->username)||$request->username != 0 )
 
             {
@@ -351,7 +389,11 @@ class ExcelController extends Controller
 
             }
 
+           
+
             $values = $data->get();
+
+
 
         }else
 
@@ -369,112 +411,127 @@ class ExcelController extends Controller
 
                                                   ->where('booking_tickets.user_id', Auth::user()->id);
 
-        
+            
+
             if(!empty($request->username)||$request->username != 0 )
 
             {    
 
               $data =  $data->where('booking_tickets.Name', $request->username);
 
+
+
             }
+
+
+
             $values = $data->get();
 
         }
 
-        }else
-
-        {//whole data
-
-            if($user->role == 1)
-
-            {//admin case
-
-                if($request->username == '0' )
-
-                {
-                    $values =DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
-
-                        ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
-
-                            ->select('users.name', 'booking_tickets.*', 'buses.carnumber', 'buses.carname')
-                            ->whereDate('booking_tickets.created_at','<=', $to)
-
-                            ->whereDate('booking_tickets.created_at', '>=', $from)
-                        ->get();
-
-                }
-
-                else
-
-                {
-
-                    $values =DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
-
-                                                    ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
-
-                                                        ->select('users.name', 'booking_tickets.*', 'buses.carnumber', 'buses.carname')
-                                                        ->whereDate('booking_tickets.created_at','<=', $to)
-
-                                                        ->whereDate('booking_tickets.created_at', '>=', $from)
-                                                    ->where('booking_tickets.Name', $request->username)
-
-                                                    ->get();
-
-                }
 
 
 
-            }else
 
-            {//employee acse
+    }else
 
-                
-                $data = DB::table('booking_tickets')->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
-                ->where('booking_tickets.user_id', $user->id)
-                ->where('Name', $name)
-                ->select('booking_tickets.*', 'buses.carnumber', 'buses.carname');
-        
+    {//whole data
 
-                
-                if($request->username == 0 )
 
-                {
 
-                    $data  = $data->where('booking_tickets.Name', $request->username);
+        if($user->role == 1)
 
-                }
+        {//admin case
 
-                $values = $data->get();
+ 
+            if($request->username == '0' )
+
+            {
+
+                $values =DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
+
+                    ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
+
+                        ->select('users.name', 'booking_tickets.*', 'buses.carnumber', 'buses.carname')
+
+                    ->get();
+
+
 
             }
+
+            else
+
+            {
+
+
+
+                $values =DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
+
+                                                  ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
+
+                                                      ->select('users.name', 'booking_tickets.*', 'buses.carnumber', 'buses.carname')
+
+                                                  ->where('booking_tickets.Name', $request->username)
+
+                                                  ->get();
+
+
+
+            }
+
+
+
+        }else
+
+        {//employee acse
+
+            
+            $data = DB::table('booking_tickets')->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
+            ->where('booking_tickets.user_id', $user->id)
+            ->where('Name', $name)
+            ->select('booking_tickets.*', 'buses.carnumber', 'buses.carname');
+     
+
+            
+            if($request->username == 0 )
+
+            {
+
+                 $data  = $data->where('booking_tickets.Name', $request->username);
+
+            }
+
+            $values = $data->get();
 
         }
 
-        if(isset($request->username))
+    }
 
-            {
+    if(isset($request->username))
 
-            $excelname = $request->username."_".$request->from."_".$request->to."reservation";
+    {
 
-            }
+      $excelname = $request->username."_".$request->from."_".$request->to."reservation";
 
-        else
+    }
 
-            {
+    else
 
-            $excelname = "Whole"."_".$request->from."_".$request->to."reservation";
+    {
 
-            }
+      $excelname = "Whole"."_".$request->from."_".$request->to."reservation";
 
-                $invoiceExcel = new InvoiceExcel;
+    }
 
-          
-                $invoiceExcel->getData($values);
+    $invoiceExcel = new InvoiceExcel;
+
+    $invoiceExcel->getData($values);
 
 
-                return Excel::download($invoiceExcel, $excelname.'.xlsx'  );
+    return Excel::download($invoiceExcel, $excelname.'.xlsx'  );
 
-            }
+	}
 
 	
 
@@ -484,12 +541,16 @@ class ExcelController extends Controller
 
   {
 
+
+
     $user = Auth::user();
 
     $userId = $user->id;
 
 
     $checkmangement = DB::table('checkmangements')->where('user_id', $userId);
+
+                                        
 
     $checkedDatas   =  $checkmangement->get();
 
@@ -502,6 +563,8 @@ class ExcelController extends Controller
 
        array_push($ids, $val->bookingticket_id);
 
+
+
     $values = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
 
                                           ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
@@ -513,10 +576,16 @@ class ExcelController extends Controller
                                           ->get();
 
 
-     
+
     $invoiceExcel = new InvoiceExcel;
+
     
+
+
+
     $invoiceExcel->getData($values);
+
+    
 
     $date = Carbon::now();
 
@@ -524,9 +593,14 @@ class ExcelController extends Controller
 
     $username = $user->name;
 
+
+
     $excelname = "Invoice_report_".$date."_".$username;
 
+
+
     return Excel::download($invoiceExcel, $excelname.'.xlsx'  );
+
 
   }
 
@@ -554,13 +628,6 @@ class ExcelController extends Controller
 		}
 		else
 		{
-        
-            $num = DB::table('config')->get();
-            foreach($num as $num_val1)
-                if ($num_val1->name === 'lastUsedNum') {
-                    $num_val = $num_val1->value;
-                }
-         
             $user = Auth::user();
             $userId = $user->id;
 
@@ -597,22 +664,7 @@ class ExcelController extends Controller
       
 
         }
-
-        $num = $num_val;
-        $temp = $num_val;
-        foreach($data as $val) {
-            $num = $num + 1;
-           
-            $val->Num_Fac = $num;
-           
-            DB::table('booking_tickets')->where('booking_tickets.id', $val->id)
-                                            ->update(['Num_Factura' => $num]);
-       
-           
-        }
-        
-        DB::table('config')->where("name", "lastUsedNum")
-                            ->update(['value' => $num]);
+     
       
 		return view('excel.excelinvoicelist',['data' => $data]);
     }

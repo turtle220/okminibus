@@ -100,13 +100,6 @@
 
 }
 
-.header {
-    display: flex;
-    width: max-content; 
-    justify-content: start;
-    margin: 0;
-    align-items: flex-start;
-}
 
 
 </style>
@@ -217,7 +210,7 @@
 
 <div class="animated fadeIn">
 
-	<div class="margin-right margin-bottom header" >
+	<div class="margin-right margin-bottom">
 
 	<button class="header-button btn-ExtrAdd pull-left margin-bottom margin-right" onClick="EditBookingTicket('')"><i class="fa fa-plus"></i>&nbsp{{ __('custom.newticket') }}</button>
 
@@ -235,54 +228,7 @@
 
     </form>
 
-    <form action="{{ url('BookingTickets') }}" method="get" style="width:max-content">
-
-        <div class="col-md-5">
-
-            <div class="col-md-3">
-
-
-                <label class="padding-top-5" style="font-weight:400;">{{__('custom.from')}}:</label>
-
-
-            </div>
-
-            <div class="col-md-9" >
-
-                <input type="date" class="form-control"  value="{{old('from')}}" name="from" style="width: max-content;">
-
-
-            </div>
-
-        </div>
-
-        <div class="col-md-5">
-
-
-            <div class="col-md-3">
-
-
-            <label class="padding-top-5" style="font-weight:400">{{__('custom.to')}}:</label>
-
-
-            </div>
-
-            <div class="col-md-9">
-
-                <input type="date" class="form-control" value="{{old('to')}}" name="to" style="width: max-content;">
-
-            </div>
-
-
-        </div>
-
-        <div class="col-md-2">
-
-            <button type="submit" class="header-button pull-left margin-right" style="display:flex;"><i class="fa fa-search"></i> &nbsp;{{__('custom.search') }}</button>
-
-        </div>
-
-    </form>
+   
 
     
 
@@ -315,21 +261,12 @@
                             	<th>{{ __('custom.code') }}</th>
 
                                 <th>{{ __('custom.close') }}</th>
-                                
-                                <th>{{ __('custom.origin') }}</th>
 
                                 <th>{{ __('custom.hotel') }}</th>
-                                
-                                <th>{{ __('custom.destination') }}</th>
 
                                 <th>{{ __('custom.name')  }}</th>
 
-                                <th>Tipo de Servicio</th>
-
                                 <th>{{ __('custom.carnumber') }}</th>
-                                
-
-                                <th>Hora</th>
 
                                 <th>{{ __('custom.provider')}}</th>
 
@@ -338,14 +275,14 @@
 
                                 <th>
                                     <div class="pretty p-icon  p-locked all">
-                                        <input type="checkbox"  @if($allStatus == true)checked @endif>
-                                        
-                                        <div class="state p-success">
-                                            <i class="icon fa fa-check"></i>
-                                            <label></label>
-                                        </div>
-                                        
-                                        </div> 
+                                                            <input type="checkbox"  @if($allStatus == true)checked @endif>
+                                                            
+                                                            <div class="state p-success">
+                                                                <i class="icon fa fa-check"></i>
+                                                                <label></label>
+                                                            </div>
+                                                            
+                                                            </div> 
                                     </th>
 
                             </tr>
@@ -368,22 +305,19 @@
 
 							      <td>{{ $BookingTicket->BTDate }}</td>
 
-                                  <td>{{ $BookingTicket->origin }}</td>
-
 							      <td>{{ $BookingTicket->Hotel }}</td>
 
-                                  <td>{{ $BookingTicket->destination }}</td>
-                                  
 							      <td>{{ $BookingTicket->Name }}</td>
 
 				   			      <!-- <td> @if($BookingTicket->StatusId == "p"||$BookingTicket->StatusId == "P"){{__('custom.pending')}}@else {{__('custom.bookkeeping')}}@endif</td> -->
-                                  <td>{{ $BookingTicket->sd}}</td>
 
                                   <td>{{ $BookingTicket->carnumber}}</td>
 
-                                  <td>{{ $BookingTicket->BTTime}}</td>
-
                                   <td>{{ $BookingTicket->name}}</td>
+
+                               
+
+
 
                                   <td>
 

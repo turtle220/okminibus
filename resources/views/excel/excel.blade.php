@@ -205,7 +205,13 @@
 
 
     			<form method="POST" action="{{ url('excel/print')}}">
+
+
+    				
+
+
     				@csrf
+
 
     				<input type="hidden" name="from" value="{{old('from')}}">
 
@@ -217,6 +223,7 @@
 
 
     				<button type="submit"  class="btn btn-primary"><i class="fa fa-print"></i>{{__('custom.excel')}}</button>
+
 
     			</form>
 
@@ -257,32 +264,27 @@
                 <div class="card-body">
 
 
-                    <table id="bootstrap-data-table-export" class="table table-striped table-bordered col-md-center">
-
+                    <table id="bootstrap-data-table-excel-export" class="table table-striped table-bordered col-md-center">
+                    <!-- <table class="table table-striped table-bordered col-md-center"> -->
 
                     	<thead>
 
-
                             <tr>
 
+                            	<th>No</th>
 
-                            	<th>{{ __('custom.no') }}</th>
-
-
-                            	<th>{{ __('custom.bticketid')}}
-
+								<th>Num.Factura</th>
 
                                 <th>{{ __('custom.username') }}</th>
 
-
-                                <th>{{ __('custom.price') }}</th>
-
+							    <th>{{ __('custom.origin') }}</th>
 
                                 <th>{{ __('custom.destination') }}</th>
-
-
+                               
                                 <th>{{ __('custom.vichleno')}}</th>
 
+
+                                <th>Paradas</th>
 
                                 <th>{{ __('custom.provider') }}</th>
 
@@ -298,51 +300,30 @@
 
                         <tbody>
 
-
-                        	<?php $i =1; ?>
-
-
-                        	@foreach($values as $val) 
-
-
-	                        	<tr>
-
-
+							
+                        	@foreach($values as $key => $val) 							
+	                        	<tr >
 	                        		<input type="hidden" name="userId" class="user_id" value="{{$val->id}}">
+	                        		<td >
+										{{count($values) - $key}}
+									</td>
 
-
-	                        		<td>{{ $i }}</td>
-
-
-	                            	<td>{{ $val->BTicketId }}</td>
-
+									<td>{{ $val->Num_Factura }}</td>
 
 	                                <td>{{ $val->Name }}</td>
 
-
-	                                <td>{{ $val->Price }}</td>
-
+	                                <td>{{ $val->origin }}</td>
 
 	                                <td>{{ $val->Hotel }}</td>
 
-
 	                                <td>{{ $val->DFlightNo}}</td>
 
+	                                <td></td>
 
 	                                <td>{{ $val->name }}</td>
 
-
 	                                <td>{{ $val->created_at}}</td>
-
-
-									
-
-
 	                            </tr>
-
-
-                            <?php $i++; ?>
-
 
                             @endforeach
 
