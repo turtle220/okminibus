@@ -161,7 +161,6 @@
                         <a href="{{ url('invoice') }}"> <i class="menu-icon fa fa-tag"></i>{{__('custom.titleinvoice')}}</a>
                     </li>
                     @endif
-
                     
                     {{-- Generar Hoja de Ruta en Excel --}}
                     @if(Auth::user()->role == 1 || Auth::user()->role == 2)
@@ -237,7 +236,6 @@
             <iframe id="my_iframe" style="display:none;"></iframe>
             @yield('content')
         </div>
-
     </div>
 
     <script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>

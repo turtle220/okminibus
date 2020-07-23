@@ -1,223 +1,127 @@
 $(document).ready(function($) {
-
-
     //uploading
 
     toastr.options = {
+        closeButton: true,
 
-        "closeButton": true,
+        debug: false,
 
-        "debug": false,
+        newestOnTop: false,
 
-        "newestOnTop": false,
+        progressBar: false,
 
-        "progressBar": false,
+        positionClass: 'toast-top-right',
 
-        "positionClass": "toast-top-right",
+        preventDuplicates: false,
 
-        "preventDuplicates": false,
+        onclick: null,
 
-        "onclick": null,
+        showDuration: '300',
 
-        "showDuration": "300",
+        hideDuration: '1000',
 
-        "hideDuration": "1000",
+        timeOut: '5000',
 
-        "timeOut": "5000",
+        extendedTimeOut: '1000',
 
-        "extendedTimeOut": "1000",
+        showEasing: 'swing',
 
-        "showEasing": "swing",
+        hideEasing: 'linear',
 
-        "hideEasing": "linear",
+        showMethod: 'fadeIn',
 
-        "showMethod": "fadeIn",
-
-        "hideMethod": "fadeOut"
-
-    }
+        hideMethod: 'fadeOut',
+    };
 
     //toastr["success"]("Have fun storming the castle!")
 
     $('.navbar-nav a, td a').click(function() {
-
-
-
         $('.loading-overlay').show();
-
-
-
     });
 
-
-
-
-
-
-
     $('.role').change(function() {
-
-
-
         var url = $('#user-setrole').val();
 
-
-
         $.ajax({
-
-
-
             url: url,
 
-
-
-            method: "GET",
-
-
+            method: 'GET',
 
             data: {
-
-
                 id: $(this).parents('tr').find('input').val(),
 
-
-
-                role: $(this).val()
-
-
-
-
-
-
+                role: $(this).val(),
             },
 
-
             success: function(data) {
-
-
-                if (data['success'] == "true")
-
-
-                {
-
+                if (data['success'] == 'true') {
                     var msg = $('#successMsg').val();
 
                     toastr['success'](msg);
-
-                } else
-
-
-
-                {
-
+                } else {
                     var msg = $('#errorMsg').val();
 
                     toastr['success'](msg);
-
-
-
                 }
-
-
-
-            }
-
-
-
+            },
         });
-
-
-
-    })
-
-
-
-
-
-
+    });
 
     $('.update-user').click(function() {
-
-
-
-
-
-
-
         $('#useredit').submit();
-
-
-
-    })
-
-
+    });
 
     $('.update-save').click(function() {
-
-
-        $('#update-invoice').trigger("click");
-
-
+        $('#update-invoice').trigger('click');
     });
 
     $(function() {
-
-
         modal1Dismiss();
-
-
     });
-
 
     $('#username').change(function() {
-
-
         $('#name').val($('#username').val());
 
-        $('#invoice-submit').trigger("click");
-
+        $('#invoice-submit').trigger('click');
     });
 
+    $('#bootstrap-data-table-export').on(
+        'click',
+        '.single-check1',
+        function() {
+            // your code goes here
 
+            // var url = window.location.href + '/setcheck';
+            var url = $('#setcheck1').val();
 
-    $("#bootstrap-data-table-export").on("click", ".single-check1", function() {
-        // your code goes here
+            var id = $(this).find('#rowid').val();
 
-        // var url = window.location.href + '/setcheck';
-        var url = $('#setcheck1').val();
+            $t = $(this);
 
+            $.ajax({
+                url: url,
+                data: {
+                    id: id,
+                },
+                success: function(data) {
+                    if (data['status'] == 'check') {
+                        $t.find("input[type='checkbox']").prop('checked', true);
+                    } else {
+                        $t.find("input[type='checkbox']").prop(
+                            'checked',
+                            false
+                        );
+                    }
+                },
+                error: function(xhr, status, error) {
+                    toastr['error']('Error: please try again.');
+                },
+            });
+            // id="setcheck" value="{{url('/BookingTickets/setcheck')}}"
+        }
+    );
 
-        var id = $(this).find('#rowid').val();
-
-        $t = $(this);
-
-        $.ajax({
-            url: url,
-            data: {
-                id: id
-            },
-            success: function(data) {
-                if (data["status"] == "check") {
-                    $t.find("input[type='checkbox']").prop("checked", true);
-                } else {
-                    $t.find("input[type='checkbox']").prop("checked", false);
-                }
-            },
-            error: function(xhr, status, error) {
-                toastr["error"]("Error: please try again.");
-            }
-        });
-
-
-        // id="setcheck" value="{{url('/BookingTickets/setcheck')}}"
-
-    });
-
-
-
-
-
-    $("#bootstrap-data-table-export").on("click", ".single-check", function() {
+    $('#bootstrap-data-table-export').on('click', '.single-check', function() {
         // your code goes here
 
         var url = $('#setcheck').val();
@@ -228,54 +132,48 @@ $(document).ready(function($) {
         $.ajax({
             url: url,
             data: {
-                id: id
+                id: id,
             },
             success: function(data) {
-                if (data["status"] == "check") {
-                    $t.find("input[type='checkbox']").prop("checked", true);
+                if (data['status'] == 'check') {
+                    $t.find("input[type='checkbox']").prop('checked', true);
                 } else {
-                    $t.find("input[type='checkbox']").prop("checked", false);
+                    $t.find("input[type='checkbox']").prop('checked', false);
                 }
             },
             error: function(xhr, status, error) {
-                toastr["error"]("Error: please try again.");
-            }
+                toastr['error']('Error: please try again.');
+            },
         });
 
-
         // id="setcheck" value="{{url('/BookingTickets/setcheck')}}"
-
     });
 
-    $("#bootstrap-data-table-export").on("click", ".all", function() {
+    $('#bootstrap-data-table-export').on('click', '.all', function() {
         // your code goes here
         $('.loading-overlay').show();
         var url = $('#allcheck').val();
         $t = $(this);
 
-
         $.ajax({
             url: url,
-            data: {
-
-            },
+            data: {},
             success: function(data) {
-                if (data["status"] == "check") {
-                    $("input[type='checkbox']").prop("checked", true);
+                if (data['status'] == 'check') {
+                    $("input[type='checkbox']").prop('checked', true);
                 } else {
-                    $("input[type='checkbox']").prop("checked", false);
+                    $("input[type='checkbox']").prop('checked', false);
                 }
                 $('.loading-overlay').hide();
             },
             error: function(xhr, status, error) {
-                toastr["error"]("Error: please try again.");
+                toastr['error']('Error: please try again.');
                 $('.loading-overlay').hide();
-            }
-
+            },
         });
     });
 
-    $("#bootstrap-data-table-export").on("click", ".all1", function() {
+    $('#bootstrap-data-table-export').on('click', '.all1', function() {
         // your code goes here
         $('.loading-overlay').show();
         var url = $('#all1').val();
@@ -285,402 +183,236 @@ $(document).ready(function($) {
         // var url = window.location.href + '/allcheck';
         $t = $(this);
 
-
         $.ajax({
             url: url,
             data: {
                 from: from,
-                to: to
+                to: to,
             },
             success: function(data) {
-                if (data["status"] == "check") {
-                    $("input[type='checkbox']").prop("checked", true);
+                if (data['status'] == 'check') {
+                    $("input[type='checkbox']").prop('checked', true);
                 } else {
-                    $("input[type='checkbox']").prop("checked", false);
+                    $("input[type='checkbox']").prop('checked', false);
                 }
                 $('.loading-overlay').hide();
             },
             error: function(xhr, status, error) {
-                toastr["error"]("Error: please try again.");
+                toastr['error']('Error: please try again.');
                 $('.loading-overlay').hide();
-            }
-
+            },
         });
     });
 
-
     $(document).on('click', '.searchbtn-ticket', function() {
-
-
-
         var ticketKeyword = $('#ticket-keyword').val();
 
         var url = $('#BookingTickets-search').val();
 
-
-
         $.ajax({
-
             url: url,
 
             data: {
-
-                keyword: ticketKeyword
-
+                keyword: ticketKeyword,
             },
 
-            success: function(data) {
-
-
-
-            },
+            success: function(data) {},
 
             error: function(xhr, status, error) {
-
-                toastr["error"]("Error: please try again.");
-
-            }
-
+                toastr['error']('Error: please try again.');
+            },
         });
-
-    })
-
-    $(document).on('click', '.sSaveBookingTicket', function() {
-
-        reSaveBookingTicket();
-
     });
 
-
-
-
+    $(document).on('click', '.sSaveBookingTicket', function() {
+        reSaveBookingTicket();
+    });
 
     $(document).on('click', '.ssave-area', function() {
-
         resavearea();
-
-    })
-
-
+    });
 
     //get the reqired name.
 
     $(document).on('click', '.save-car', function() {
-
         savecar();
-
     });
-
-
 
     $(document).on('click', '.ssave-car', function() {
-
         resavecar();
-
     });
-
-})
-
-
+});
 
 function savecar() {
-
     var url = $('#carstore').val();
 
     var carnumber = $("input[name='carnumber']").val();
 
     var carname = $("input[name='carname']").val();
 
-    var someID = "carmodal";
+    var someID = 'carmodal';
 
     $.ajax({
-
         url: url,
 
         data: {
-
             carnumber: carnumber,
 
-            carname: carname
-
+            carname: carname,
         },
 
         success: function(data) {
-
-
-
-            if (data['success'] == "true")
-
-            {
-
+            if (data['success'] == 'true') {
                 var car = data['carnumber'];
 
                 var id = data['id'];
 
-                $("#car").attr('disabled', false);
+                $('#car').attr('disabled', false);
 
-                $("#car").append('<option  selected value=' + id + '>' + car + '</option>');
-
-
-
+                $('#car').append(
+                    '<option  selected value=' + id + '>' + car + '</option>'
+                );
 
                 $('#carmodal').modal('toggle');
-
-            } else
-
-            {
-
+            } else {
                 var msg = $('#successMsg').val();
 
-                toastr["error"](msg);
-
-
-
+                toastr['error'](msg);
             }
-
         },
 
         error: function(xhr, status, error) {
-
-
-
             var msg = $('#errorMsg').val();
 
-            toastr["error"](msg);
-
-        }
-
+            toastr['error'](msg);
+        },
     });
-
 }
 
-
-
-
-
 function resavecar() {
-
     var url = $('#carstore').val();
 
     var carnumber = $("input[name='scarnumber']").val();
 
     var carname = $("input[name='scarname']").val();
 
-    var someID = "carmodal";
+    var someID = 'carmodal';
 
     $.ajax({
-
         url: url,
 
         data: {
-
             carnumber: carnumber,
 
-            carname: carname
-
+            carname: carname,
         },
 
         success: function(data) {
-
-
-
-            if (data['success'] == "true")
-
-            {
-
+            if (data['success'] == 'true') {
                 var car = data['carnumber'];
 
                 var id = data['id'];
 
-                $("#scar").attr('disabled', false);
+                $('#scar').attr('disabled', false);
 
-                $("#scar").append('<option  selected value=' + id + '>' + car + '</option>');
-
+                $('#scar').append(
+                    '<option  selected value=' + id + '>' + car + '</option>'
+                );
 
                 $('#scarmodal').modal('toggle');
-
-            } else
-
-            {
-
+            } else {
                 var msg = $('#successMsg').val();
 
-                toastr["error"](msg);
-
+                toastr['error'](msg);
             }
-
         },
 
         error: function(xhr, status, error) {
-
-
-
             var msg = $('#errorMsg').val();
 
-            toastr["error"](msg);
-
-        }
-
+            toastr['error'](msg);
+        },
     });
-
 }
 
-
-function inVoiceList()
-
-
-{
-
+function inVoiceList() {
     var name = $('#username').val();
 
     var url = $('#invoicelist-pdf').val();
 
     $.ajax({
-
         url: url,
 
-        method: "post",
+        method: 'post',
 
         data: {
-
-            name: name
-
+            name: name,
         },
 
         success: function(data) {
-
             console.log(data);
-
-        }
-
-    })
-
+        },
+    });
 }
 
-function resavearea()
-
-{
-
+function resavearea() {
     var destination = $('input[name=sdestination]').val();
 
     var url = $('#area-store').val();
 
-
     $.ajax({
-
         url: url,
 
-        method: "GET",
+        method: 'GET',
 
         data: {
-
-            destination: destination
-
+            destination: destination,
         },
 
         success: function(data) {
-
-            if (data['success'] == "true")
-
-            {
-
+            if (data['success'] == 'true') {
                 var area = data['curarea'];
 
-                $("#sdestination").attr('disabled', false);
+                $('#sdestination').attr('disabled', false);
 
-
-
-
-
-
-
-                $("#sdestination").append('<option  selected value=' + area + '>' + area + '</option>');
-
-
-
-
-
-
-
-
-
-
-
-            } else
-
-
-
-            {
-
-
-
+                $('#sdestination').append(
+                    '<option  selected value=' + area + '>' + area + '</option>'
+                );
+            } else {
                 console.log('fa');
-
-
-
             }
 
-
-
-
-
-
-
             $('#slocmodal').modal('hide');
-
-
-
-        }
-
-
-
-    })
-
+        },
+    });
 }
 
-
-
 function ticketValidation(formName) {
-
     validateInit();
 
     var validationFlag = true;
 
-    $("#" + formName + " input[type=text]").each(function() {
+    $('#' + formName + ' input[type=text]').each(function() {
+        console.log(this.name + ':' + this.value);
 
-        console.log(this.name + ":" + this.value);
-
-        if (this.value == "") {
-
+        if (this.value == '') {
             $(this).addClass('invalid');
 
             validationFlag = false;
-
         }
-
-
-
     });
-
-
 
     // 	var form = document.getElementById(formName);
 
-
-
     // 	var howMany = form.elements.length;
-
-
 
     // 	var validationFlag = true;
 
     // debugger;
 
-    //     for (var count = 1; count < howMany; count++) 
+    //     for (var count = 1; count < howMany; count++)
 
     //     {
-
-
 
     //     	if(form.elements[count].name!="")
 
@@ -698,353 +430,132 @@ function ticketValidation(formName) {
 
     //     		}
 
-
-
-
-
-
-
     //     	}
 
     //     }
 
-
-
     return validationFlag;
-
 }
 
-
-
-function validateInit()
-
-{
-
+function validateInit() {
     $('input').removeClass('.invalid');
-
 }
-
-
-
-
-
-
 
 function savearea() {
-
-
-
-
-
-
-
-    // $('.save-area').on('click', function(){	
-
-
+    // $('.save-area').on('click', function(){
 
     var destination = $('input[name=destination]').val();
 
-
-
     console.log(destination);
-
-
 
     var url = $('#area-store').val();
 
-
-
     $.ajax({
-
-
-
         url: url,
 
-
-
-        method: "GET",
-
-
+        method: 'GET',
 
         data: {
-
-
-
-            destination: destination
-
-
-
+            destination: destination,
         },
 
-
-
         success: function(data) {
-
-
-
-            if (data['success'] == "true")
-
-
-
-            {
-
+            if (data['success'] == 'true') {
                 var area = data['curarea'];
 
+                $('#destination').attr('disabled', false);
 
-
-                $("#destination").attr('disabled', false);
-
-                $("#destination").append('<option  selected value=' + area + '>' + area + '</option>');
-
-            } else
-
-            {
-
+                $('#destination').append(
+                    '<option  selected value=' + area + '>' + area + '</option>'
+                );
+            } else {
                 console.log('fa');
-
             }
 
-
-
             $('#locmodal').modal('hide');
-
-
-
-        }
-
-
-
-    })
-
-
+        },
+    });
 
     // })
-
-
-
-
-
-
-
 }
 
-
-
-
-
-
-
-
-
-
-
 function modal1Dismiss() {
-
-
-
     $('.modal1-cancle').on('click', function() {
-
-
-
         // $('#myModal').toggle();
 
-
-
-        // $('#myModal').modal('toggle'); 
-
-
+        // $('#myModal').modal('toggle');
 
         // $('body').removeClass('modal-open');
 
-
-
         // $('body').css('padding-right', '0px');
-
-
 
         // $('.modal-backdrop').remove();
 
-
-
         // console.log("clik");
 
-
-
         location.reload();
-
-
-
-
-
-
-
-    })
-
-
-
+    });
 }
 
-
-
-function FullReload()
-
-
-
-{
-
-
-
-    window.location = "" + window.location;
-
-
-
+function FullReload() {
+    window.location = '' + window.location;
 }
 
-
-
-
-
-function handler()
-
-{
-
+function handler() {
     $('#myModal').modal('toggle');
-
 }
 
-function ShowBookingTicket(BTicketId)
-
-
-
-{
-
+function ShowBookingTicket(BTicketId) {
     var url = $('#BookingTickets-show').val();
 
-
-
-    $('#myModal').html(" ");
-
-
+    $('#myModal').html(' ');
 
     $('#myModal').load(url + BTicketId);
 
-
-
     $('#myModal').modal('show');
-
-
-
 }
 
-
-
-
-
-
-
-function EditBookingTicket(BTicketId)
-
-
-
-{
-
-
-
+function EditBookingTicket(BTicketId) {
     var url = $('#BookingTickets-edit').val();
 
     var userurl = $('#getuserlistajax').val();
 
-    $('#myModal').html(" ");
-
-
+    $('#myModal').html(' ');
 
     $('#myModal').load(url + BTicketId, function() {
-
         // $('#Name').on('keyup', function(){
-
         // 	console.log(":)");
-
         // });
-
         // $('#Name').autocomplete({
-
         // 	paramName: 'keyword',
-
         // 	serviceUrl: userurl,
-
         // 	lookupFilter: function (suggestion, query, queryLowerCase) {
-
         //     			  return suggestion.value.toLowerCase().indexOf(queryLowerCase) === 0;
-
         //  		    },
-
         // 	onSearchComplete: function(query, suggestions) {
-
         // 		console.log("serch resutlt"+suggestions);
-
         // 		if(suggestions.length == 0)
-
         // 		{
-
         // 			$('#Name').val(
-
         // 				function(index, value){
-
         //    				  		return value.substr(0, value.length - 1);
-
         // 				});
-
-
-
         // 			var msg = $('#existUserName').val();
-
         // 			toastr["warning"](msg);
-
         // 		}
-
-
-
         // 		return suggestions;
-
         // 	}
-
         // });
-
-
-
     });
 
-
-
     $('#myModal').modal('show');
-
-
-
 }
 
-
-
-
-
-
-
-function SaveBookingTicket(BTicketId)
-
-
-
-{
-
-    if (ticketValidation('ModalForm') == true)
-
-    {
-
+function SaveBookingTicket(BTicketId) {
+    if (ticketValidation('ModalForm') == true) {
         var url = $('#BookingTickets-save').val();
 
-
-
-        var dataString = "BTicketId=" + BTicketId;
-
-
+        var dataString = 'BTicketId=' + BTicketId;
 
         var form = document.getElementById('ModalForm');
 
@@ -1052,643 +563,258 @@ function SaveBookingTicket(BTicketId)
 
         var howMany = form.elements.length;
 
-
-
-
-
-
-
         for (var count = 0; count < howMany; count++)
-
-
-
-            if (form.elements[count].name != "")
-
-
-
-                dataString = dataString + "&" + form.elements[count].name + "=" + urlencode(form.elements[count].value);
-
-
-
-
-
-
+            if (form.elements[count].name != '')
+                dataString =
+                dataString +
+                '&' +
+                form.elements[count].name +
+                '=' +
+                urlencode(form.elements[count].value);
 
         $.ajax({
-
-
-
-            type: "POST",
-
-
+            type: 'POST',
 
             url: url + BTicketId,
 
-
-
             data: dataString,
 
-
-
             success: function(data) {
-
-
-
-
-
-
-
-                if (data.ItsOk == 'Y')
-
-
-
-                {
-
-
-
-                    $("#myModal").html(data.Html);
+                if (data.ItsOk == 'Y') {
+                    $('#myModal').html(data.Html);
 
                     var msg = $('#successmsg').val();
 
-                    toastr["success"](msg);
-
-                } else
-
-
-
-                {
-
-                    if (data.Html == "emptyuser")
-
-                    {
-
+                    toastr['success'](msg);
+                } else {
+                    if (data.Html == 'emptyuser') {
                         //$("#ErrorZone").html("You should type exist client name");You should type exist client name
 
                         var msg = $('#existUserName').val();
 
-                        toastr["error"](msg);
+                        toastr['error'](msg);
 
-                        $("#Name").focus();
-
-                    } else
-
-                    {
-
-                        toastr["error"]("data.Html");
-
+                        $('#Name').focus();
+                    } else {
+                        toastr['error']('data.Html');
                     }
-
-
-
-
-
                 }
-
-
-
-            }
-
-
-
+            },
         }).always(function() {
-
-
-
             modal1Dismiss();
-
-
-
         });
-
-
-
-
-
-    } else
-
-    {
-
+    } else {
         var msg = $('#required').val();
 
         toastr['warning'](msg);
-
     }
-
 }
 
-
-
-
-
-function reSaveBookingTicket()
-
-{
-
-    if (ticketValidation('selectedModal') == true)
-
-    {
-
+function reSaveBookingTicket() {
+    if (ticketValidation('selectedModal') == true) {
         var url = $('#BookingTickets-resave').val();
 
-
-
-        var dataString = "BTicketId=";
-
-
+        var dataString = 'BTicketId=';
 
         var form = document.getElementById('selectedModal');
 
-
-
         var howMany = form.elements.length;
 
-
-
-
-
-
-
         for (var count = 0; count < howMany; count++)
-
-
-
-            if (form.elements[count].name != "")
-
-
-
-                dataString = dataString + "&" + form.elements[count].name + "=" + urlencode(form.elements[count].value);
-
-
-
-
-
-
+            if (form.elements[count].name != '')
+                dataString =
+                dataString +
+                '&' +
+                form.elements[count].name +
+                '=' +
+                urlencode(form.elements[count].value);
 
         $.ajax({
-
-
-
-            type: "GET",
-
-
+            type: 'GET',
 
             url: url,
 
-
-
             data: dataString,
 
-
-
             success: function(data) {
-
-
-
                 //toastr["success"]("success");
 
                 location.reload();
-
             },
 
             error: function(xhr, status, error) {
-
                 var msg = $('#required').val();
 
                 toastr['warning'](msg);
-
-            }
-
-
-
-        }).always(function() {
-
-
-
-
-
-
-
-        });
-
-
-
-    } else
-
-    {
-
+            },
+        }).always(function() {});
+    } else {
         var msg = $('#required').val();
 
         toastr['warning'](msg);
-
     }
-
 }
 
-
-
-
-
-function DoFilter(type, order)
-
-
-
-{
-
-
-
-    window.location = '/' + type + '/' + order + '/' + $("#Filter").val() + '/' + urlencode($("#Search").val());
-
-
-
+function DoFilter(type, order) {
+    window.location =
+        '/' +
+        type +
+        '/' +
+        order +
+        '/' +
+        $('#Filter').val() +
+        '/' +
+        urlencode($('#Search').val());
 }
-
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-function urlencode(str)
-
-
-
-{
-
-
-
+function urlencode(str) {
     str = escape(str);
-
-
 
     str = str.replaceAll('+', '%2B');
 
-
-
     str = str.replaceAll('%20', '+');
-
-
 
     str = str.replaceAll('*', '%2A');
 
-
-
     str = str.replaceAll('/', '%2F');
-
-
 
     str = str.replaceAll('@', '%40');
 
-
-
     return str;
-
-
-
 }
-
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-function urldecode(str)
-
-
-
-{
-
-
-
+function urldecode(str) {
     str = str.replace('+', ' ');
-
-
 
     str = unescape(str);
 
-
-
     return str;
-
-
-
 }
-
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
+function String2DateTime(myDateTime) {
+    var Answer = '';
 
-
-function String2DateTime(myDateTime)
-
-
-
-{
-
-
-
-    var Answer = "";
-
-
-
-    if (myDateTime != "")
-
-
-
-    {
-
-
-
+    if (myDateTime != '') {
         var opera0 = myDateTime.split(' ');
 
-
-
-        if (opera0.length >= 1)
-
-
-
-        {
-
-
-
+        if (opera0.length >= 1) {
             var myDate = opera0[0];
-
-
 
             var opera1 = myDate.split('/');
 
-
-
             var opera2 = myDate.split('-');
-
-
 
             lopera1 = opera1.length;
 
-
-
             lopera2 = opera2.length;
 
-
-
-
-
-
-
-            if (lopera1 > 1)
-
-
-
-                var pdate = myDate.split('/');
-
-
-
-            else if (lopera2 > 1)
-
-
-
-                var pdate = myDate.split('-');
-
-
-
-
-
-
+            if (lopera1 > 1) var pdate = myDate.split('/');
+            else if (lopera2 > 1) var pdate = myDate.split('-');
 
             var yy = parseInt(pdate[2], 10);
 
-
-
             var mm = parseInt(pdate[1], 10);
-
-
 
             var dd = parseInt(pdate[0], 10);
 
-
-
-            Answer = yy + "-" + Ed2z(mm) + "-" + Ed2z(dd);
-
-
-
+            Answer = yy + '-' + Ed2z(mm) + '-' + Ed2z(dd);
         }
 
-
-
-        if (opera0.length >= 2)
-
-
-
-        {
-
-
-
-            Answer = Answer + " " + opera0[1];
-
-
-
+        if (opera0.length >= 2) {
+            Answer = Answer + ' ' + opera0[1];
         }
-
-
-
     }
 
-
-
-    return (Answer);
-
-
-
+    return Answer;
 }
-
-
-
-
-
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-function Ed2z(Number)
-
-
-
-{
-
-
-
-    if (Number < 10)
-
-
-
-        return ("0" + Number);
-
-
-
-    else
-
-
-
-        return ("" + Number);
-
-
-
+function Ed2z(Number) {
+    if (Number < 10) return '0' + Number;
+    else return '' + Number;
 }
-
-
-
-
-
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-String.prototype.replaceAll = function(str1, str2, ignore)
-
-
-
-{
-
-
-
-    return this.replace(new RegExp(str1.replace(/([\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, function(c) { return "\\" + c; }), "g" + (ignore ? "i" : "")), str2);
-
-
-
+String.prototype.replaceAll = function(str1, str2, ignore) {
+    return this.replace(
+        new RegExp(
+            str1.replace(
+                /([\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,
+                function(c) {
+                    return '\\' + c;
+                }
+            ),
+            'g' + (ignore ? 'i' : '')
+        ),
+        str2
+    );
 };
 
-
-
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-
-
-
-
-function setajax(url, id)
-
-{
-
+function setajax(url, id) {
     $.ajax({
-
         url: url,
 
         data: {
-
-            id: id
-
+            id: id,
         },
 
         success: function(data) {
-
             return data;
-
         },
 
         error: function(xhr, status, error) {
-
-            return "false";
-
-        }
-
+            return 'false';
+        },
     });
-
 }
 
-
-
-
-
-function saveCar()
-
-{
-
+function saveCar() {
     var carname = $('#carname').val();
 
     var carnumber = $('#carnumber').val();
 
-
-
     var url = $('#carstore').val();
 
-
-
     $.ajax({
-
-
-
         url: url,
 
-
-
-        method: "GET",
-
-
+        method: 'GET',
 
         data: {
-
-
-
             carname: carname,
 
-            carnumber: carnumber
-
+            carnumber: carnumber,
         },
 
-
-
         success: function(data) {
-
-
-
-            if (data['success'] == "true")
-
-
-
-            {
-
+            if (data['success'] == 'true') {
                 var area = data['curcar'];
 
+                $('#carstore').attr('disabled', false);
 
-
-                $("#carstore").attr('disabled', false);
-
-                $("#carstore").append('<option  selected value=' + area + '>' + area + '</option>');
-
-            } else
-
-            {
-
+                $('#carstore').append(
+                    '<option  selected value=' + area + '>' + area + '</option>'
+                );
+            } else {
                 var msg = $('#errormsg').val();
 
                 toastr['success'](msg);
-
             }
 
-
-
             $('#carmodal').modal(msg);
-
-
-
-        }
-
-
-
-    })
-
+        },
+    });
 }
-
-
-
-
 
 // function addRow(data)
 

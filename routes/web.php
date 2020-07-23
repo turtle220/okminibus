@@ -1,7 +1,5 @@
 <?php
 
-
-
 /*
 
 |--------------------------------------------------------------------------
@@ -22,30 +20,19 @@
 
 */
 
-
-
-
-
-
-
 Auth::routes();
-
-
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
 //Route::get('/', 'BookingController@index');
 
-
-
 //bookingTickets
 
+Route::get('/', 'BookingController@index');
 
-
-	Route::get('/', 'BookingController@index');
+Route::get("BookingTickets", "BookingController@index");
 
 Route::get("BookingTickets/show", "BookingController@show");
-Route::get("BookingTickets", "BookingController@index");
 
 Route::get("BookingTickets/edit", "BookingController@edit");
 
@@ -64,6 +51,7 @@ Route::get("BookingTickets/search", "BookingController@search");
 Route::get("BookingTickets/editAjax", "BookingController@editAjax");
 
 Route::get("BookingTickets/resave", "BookingController@store");
+
 Route::get("BookingTickets/allcheck", "BookingController@allCheck");
 
 //invoice
@@ -96,10 +84,6 @@ Route::post('area/update', 'AreaController@update');
 
 Route::post('area/destroy', 'AreaController@destroy');
 
-
-
-
-
 //admin url
 
 Route::get('/users', 'UserController@index');
@@ -116,25 +100,17 @@ Route::post('/user/delete', 'UserController@destroy');
 
 Route::get('/user/setrole', 'UserController@setRole');
 
-
-
-
-
 //excel url
 
 Route::get('excel', 'ExcelController@index');
 
-// Route::post('excel/print/admin',  'ExcelController@printAdmin()');
-
-// Route::post('excel/print','ExcelController@printExcel');
 Route::post('excel/print','ExcelController@printexcel_hoja');
 
 Route::get('/getuserlistajax', 'UserController@getUserListAjax');
 
 Route::post('selectedprint', 'ExcelController@selectedPrint');
+
 Route::get('invoicelistexcel', 'ExcelController@invoiceListExcel');
-
-
 
 Route::get('/getCurrentTime', 'BookingController@getCurrentTime');
 

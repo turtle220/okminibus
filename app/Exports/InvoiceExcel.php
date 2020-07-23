@@ -13,15 +13,17 @@ class InvoiceExcel implements FromView
     * @return \Illuminate\Support\Collection
     */
     public function view(): View
-    {
-        //
-          return view('excel.excelprint', [
+    {   
+        
+        return view('excel.excelprint', [
             'values' => $this->data
         ]);
     }
 
     public function getData($data)
     {
-    	$this->data = $data;
+      
+        $this->data = $data;
+        
     }
 }
