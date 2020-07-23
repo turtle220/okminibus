@@ -65,7 +65,7 @@ return [
     'destination' => 'Destino',
     'amount' => 'Cantidad',
     'ticket' => 'Boleto',
-    'usermanagement' => 'Gestión de usuarios',
+    'usermanagement' => 'Control de Usuario',
     'usertable' => 'Tabla de usuarios',
     'invoice' => 'Factura',
     'successmsg' => 'Indica una acción correcta o positiva.',
@@ -82,6 +82,7 @@ return [
     'provider' => 'Proveedor',
 
     'generateroadmapinexcel' => 'Generar Hoja de Ruta en Excel',
+    'usercontrol' => 'Control de Usuario',
 
 	'bticketid' => 'BTicketID',
     'roadmaptable' => 'Tabla de hoja de ruta',
@@ -125,12 +126,10 @@ return [
     'existUserName' => "Debe escribir el nombre del cliente existente.",
     'required' => 'Todos los campos son obligatorios.',
 
-    
-
-
-
     'carname' => 'Nombre del coche',
     'carnumber' => 'Número de coche',
+    'typeid' => 'Tipo de Servicio',
+    'hora' => 'Hora',
     
     'newcar' => 'Vehículo nuevo',
     'cars' => 'Vehículos',

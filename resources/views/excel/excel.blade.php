@@ -1,6 +1,3 @@
-
-
-
 @extends('userlayouts.userapp')
 
 
@@ -11,29 +8,26 @@
 
 
 <style type="text/css">
+    .padding-top-5 {
 
 
-	.padding-top-5 {
+        padding-top: 5px;
 
 
-		padding-top: 5px;
+    }
 
+    .padding-right-0 {
+        padding-right: 0px !important;
+    }
 
-	}
-	
-	.padding-right-0 {
-		padding-right: 0px !important;
-	}
-	
-	.padding-0 {
-		padding: 0px !important;
-	}
-
+    .padding-0 {
+        padding: 0px !important;
+    }
 
 </style>
 
 
-<h2 class="margin-bottom">{{__('custom.generateroadmapinexcel')}}</h2> 
+<h2 class="margin-bottom">{{__('custom.generateroadmapinexcel')}}</h2>
 
 
 <div class="animated fadeIn">
@@ -42,199 +36,199 @@
     <div class="row margin-bottom">
 
 
-    	<div class="col-md-8 margin">
+        <div class="col-md-8 margin">
 
 
-    		<form action="{{ url('excel') }}" method="get">
+            <form action="{{ url('excel') }}" method="get">
 
 
-    			<div class="col-md-3 padding-0">
+                <div class="col-md-3 padding-0">
 
 
-    			<div class="col-md-5">
+                    <div class="col-md-5">
 
 
-    			  <label class="padding-top-5">{{__('custom.client')}}:  </label>
+                        <label class="padding-top-5">{{__('custom.client')}}: </label>
 
 
-    			</div>
+                    </div>
 
 
-    			  <div class="col-md-7 padding-0"> 
+                    <div class="col-md-7 padding-0">
 
 
-	    			  <select name="username" class="form-control">
+                        <select name="username" class="form-control">
 
 
-	    				@if(old('username') == '0')
+                            @if(old('username') == '0')
 
 
-	    					<option value="0" selected>{{ __('custom.all') }}</option>
+                            <option value="0" selected>{{ __('custom.all') }}</option>
 
 
-	    				@else
+                            @else
 
 
-	    					<option value="0">{{ __('custom.all') }}</option>
+                            <option value="0">{{ __('custom.all') }}</option>
 
 
-	    				@endif
+                            @endif
 
 
 
 
 
-	    			  	@foreach($users as $user)
+                            @foreach($users as $user)
 
 
-	    			  	 <?php $str1 = str_replace(" ", '', $user->Name);
+                            <?php $str1 = str_replace(" ", '', $user->Name);
 
 
                           $str2 = str_replace(" ", '', old('username')); ?>
 
 
-	    			  		@if($str1 == $str2)
+                            @if($str1 == $str2)
 
 
-	    			  			 <option value="{{ $user->Name }}" selected>{{ $user->Name }}</option>
+                            <option value="{{ $user->Name }}" selected>{{ $user->Name }}</option>
 
 
-	    			  		@else
+                            @else
 
 
-	    			  			 <option value="{{ $user->Name }}">{{ $user->Name }}</option>
+                            <option value="{{ $user->Name }}">{{ $user->Name }}</option>
 
 
-	    			  		@endif
+                            @endif
 
 
-	    			  	@endforeach
+                            @endforeach
 
 
-	    			  </select>	
+                        </select>
 
 
-    			  </div>
+                    </div>
 
 
-    			</div>
+                </div>
 
 
 
 
 
-    			<div class="col-md-4">
+                <div class="col-md-4">
 
 
-	    			<div class="col-md-3">
+                    <div class="col-md-3">
 
 
-	    			  <label class="padding-top-5">{{__('custom.from')}}:</label>
+                        <label class="padding-top-5">{{__('custom.from')}}:</label>
 
 
-	    			</div>
+                    </div>
 
 
 
 
 
-	    			<div class="col-md-9">
+                    <div class="col-md-9">
 
 
-	    			  <input type="date" class="form-control"  value="{{old('from')}}" name="from">
+                        <input type="date" class="form-control" value="{{old('from')}}" name="from">
 
 
-	    			</div>
+                    </div>
 
 
-    			</div>
+                </div>
 
 
 
 
 
-    			<div class="col-md-4">
+                <div class="col-md-4">
 
 
-	    			<div class="col-md-3">
+                    <div class="col-md-3">
 
 
-	    			  <label class="padding-top-5">{{__('custom.to')}}:</label>
+                        <label class="padding-top-5">{{__('custom.to')}}:</label>
 
 
-	    			</div>
+                    </div>
 
 
-	    			
 
 
-	    			<div class="col-md-9">
 
+                    <div class="col-md-9">
 
-	    			  <input type="date" class="form-control" value="{{old('to')}}" name="to">
 
+                        <input type="date" class="form-control" value="{{old('to')}}" name="to">
 
-	    			</div>
 
+                    </div>
 
-    			</div>
 
+                </div>
 
 
 
 
-    			<div class="col-md-1">
 
+                <div class="col-md-1">
 
-        		  <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> &nbsp;{{__('custom.search') }}</button>
 
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> &nbsp;{{__('custom.search') }}</button>
 
-    			</div>
 
+                </div>
 
-    		</form>
 
+            </form>
 
-    	</div>
 
+        </div>
 
-    	<div class="col-md-4">
 
+        <div class="col-md-4">
 
-    		<div class="col-md-6">
 
+            <div class="col-md-6">
 
-    			<form method="POST" action="{{ url('excel/print')}}">
 
+                <form method="POST" action="{{ url('excel/print')}}">
 
-    				
 
 
-    				@csrf
 
 
-    				<input type="hidden" name="from" value="{{old('from')}}">
+                    @csrf
 
 
-    				<input type="hidden" name="to" value="{{old('to')}}">
+                    <input type="hidden" name="from" value="{{old('from')}}">
 
 
-    				<input type="hidden" name="username" value="{{old('username')}}">
+                    <input type="hidden" name="to" value="{{old('to')}}">
 
 
-    				<button type="submit"  class="btn btn-primary"><i class="fa fa-print"></i>{{__('custom.excel')}}</button>
+                    <input type="hidden" name="username" value="{{old('username')}}">
 
 
-    			</form>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-print"></i>{{__('custom.excel')}}</button>
 
 
-    		</div>
+                </form>
 
 
-    		<div class="col-md-6"><label class="padding-top-5">{{__('custom.reservations')}}:</label> {{$count}}</div>
+            </div>
 
 
-    	</div>
+            <div class="col-md-6"><label class="padding-top-5">{{__('custom.reservations')}}:</label> {{$count}}</div>
+
+
+        </div>
 
 
     </div>
@@ -258,29 +252,29 @@
                     <strong class="card-title">{{__('custom.roadmaptable')}}</strong>
 
 
-				</div>
+                </div>
 
 
                 <div class="card-body">
 
 
                     <table id="bootstrap-data-table-excel-export" class="table table-striped table-bordered col-md-center">
-                    <!-- <table class="table table-striped table-bordered col-md-center"> -->
+                        <!-- <table class="table table-striped table-bordered col-md-center"> -->
 
-                    	<thead>
+                        <thead>
 
                             <tr>
 
-                            	<th>No</th>
+                                <th>No</th>
 
-								<th>Num.Factura</th>
+                                <th>Num.Factura</th>
 
                                 <th>{{ __('custom.username') }}</th>
 
-							    <th>{{ __('custom.origin') }}</th>
+                                <th>{{ __('custom.origin') }}</th>
 
                                 <th>{{ __('custom.destination') }}</th>
-                               
+
                                 <th>{{ __('custom.vichleno')}}</th>
 
 
@@ -300,30 +294,30 @@
 
                         <tbody>
 
-							
-                        	@foreach($values as $key => $val) 							
-	                        	<tr >
-	                        		<input type="hidden" name="userId" class="user_id" value="{{$val->id}}">
-	                        		<td >
-										{{count($values) - $key}}
-									</td>
 
-									<td>{{ $val->Num_Factura }}</td>
+                            @foreach($values as $key => $val)
+                            <tr>
+                                <input type="hidden" name="userId" class="user_id" value="{{$val->id}}">
+                                <td>
+                                    {{count($values) - $key}}
+                                </td>
 
-	                                <td>{{ $val->Name }}</td>
+                                <td>{{ $val->Num_Factura }}</td>
 
-	                                <td>{{ $val->origin }}</td>
+                                <td>{{ $val->Name }}</td>
 
-	                                <td>{{ $val->Hotel }}</td>
+                                <td>{{ $val->origin }}</td>
 
-	                                <td>{{ $val->DFlightNo}}</td>
+                                <td>{{ $val->Hotel }}</td>
 
-	                                <td></td>
+                                <td>{{ $val->DFlightNo}}</td>
 
-	                                <td>{{ $val->name }}</td>
+                                <td></td>
 
-	                                <td>{{ $val->created_at}}</td>
-	                            </tr>
+                                <td>{{ $val->name }}</td>
+
+                                <td>{{ $val->created_at}}</td>
+                            </tr>
 
                             @endforeach
 
@@ -337,7 +331,8 @@
                 </div> <!-- end of car-body-->
 
 
-            </div><!--end of card-->
+            </div>
+            <!--end of card-->
 
 
         </div><!-- end of col-md-12 -->
@@ -346,7 +341,7 @@
     </div><!-- end of col-row-->
 
 
-</div>            
+</div>
 
 
 

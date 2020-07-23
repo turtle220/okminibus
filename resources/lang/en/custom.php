@@ -136,7 +136,7 @@ return [
 
     'ticket' => 'Ticket',
 
-    'usermanagement' => 'User Management',
+    'usermanagement' => 'User Control',
 
     'usertable' => 'User Table',
 
@@ -186,6 +186,8 @@ return [
 
     'generateroadmapinexcel' => 'Generate Roadmap in Excel',
 
+    'usercontrol' => 'Control de Usuario',
+    
     'roadmaptable' => 'Roadmap Table',
 
     'vichleno' => 'VichleNo',
@@ -204,16 +206,6 @@ return [
 
     'client' => 'Client',
 
-
-
-
-
-
-
-
-
-
-
     //large character.
 
     'lclient' => 'CLIENT',
@@ -225,8 +217,6 @@ return [
     'lduedate' => 'DUEDATE',
 
     'lgrandtotal' => 'GRANDTOTAL',
-
-
 
     'pending' => 'Pending',
 
@@ -244,10 +234,6 @@ return [
 
     'errorMsg' => 'Error: Ther is an as try later on',
 
-    
-
-
-
     'extra' => 'extra',
 
     'Arrival' => 'Arrival',
@@ -257,8 +243,6 @@ return [
     'english' => 'english',
 
     'spanish' => 'spanish',
-
-
 
     'searchticket' => 'Search Ticket',
 
@@ -270,13 +254,13 @@ return [
 
     'required' => 'All fields are requiremet.',
 
-    
-
     'carname' => 'Car Name',
 
     'carnumber' => 'Car Number',
-
     
+    'typeid' => 'Tipo de Servicio',
+    
+    'hora' => 'Hora',
 
     'newcar' => 'New Car',
 
@@ -296,7 +280,4 @@ return [
 
     'servicetype' => 'Service type'
 
-    
-
 ]; 
-
