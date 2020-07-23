@@ -4,7 +4,7 @@
 
 @section('content')
 
-@if(Auth::user()->role == 1 || Auth::user()->role == 2)
+@if(Auth::user()->role == 1 || Auth::user()->role == 2 || Auth::user()->role == 3)
 
 <style type="text/css">
     .pretty {
@@ -108,23 +108,16 @@
     }
 
     .header-button:hover {
-
         background-color: #0061a7;
-
     }
 
     .header-button:active {
-
         position: relative;
-
         top: 1px;
-
     }
 
     .eddialog {
-
         width: 900px;
-
     }
 
 </style>
@@ -136,15 +129,13 @@
 <div class="animated fadeIn">
 
     <div class="margin-right margin-bottom header">
-
+        @if(Auth::user()->role == 1)
         <button class="header-button btn-ExtrAdd pull-left margin-bottom margin-right" onClick="EditBookingTicket('')"><i class="fa fa-plus"></i>&nbsp{{ __('custom.newticket') }}</button>
         <button class="header-button pull-left margin-right" data-toggle="modal" data-target="#searchModal"><i class="fa fa-copy"></i>&nbsp;{{__('custom.generateclone')}}</button>
-
+        @endif
         <form action="{{ url('selectedprint') }}" method="POST">
 
             @csrf
-
-
 
             <button type="submit" class="header-button selectedlist-print"><i class="fa fa-print"></i>&nbsp;{{ __('custom.excel') }}
 
@@ -230,9 +221,13 @@
                                 <td>{{ $BookingTicket->carnumber}}</td>
                                 <td>{{ $BookingTicket->BTTime}}</td>
                                 <td>{{ $BookingTicket->name}}</td>
+                                @if(Auth::user()->role == 1)
                                 <td>
                                     <button class="HandCursors SelectableLine myButton" data-toggle="modal" onClick="ShowBookingTicket('{{$BookingTicket->BTicketId}}')"><i class="fa fa-ticket"></i>&nbsp{{__('custom.viewshow')}}</button>
                                 </td>
+                                @else
+                                    <td></td>
+                                @endif
                                 <td>
                                     <div class="pretty p-icon p-round p-locked single-check">
                                         <input type="checkbox" @if($BookingTicket->checkstatus != NULL)checked @endif />

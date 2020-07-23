@@ -80,6 +80,7 @@ class InvoiceController extends Controller
 															->where('booking_tickets.user_id',  $userid)
 															->whereDate('booking_tickets.created_at','<=', $to)
 															->whereDate('booking_tickets.created_at', '>=', $from)
+															->orderBy('booking_tickets.created_at', 'asc')
 															->latest()
 															->get();
 				}
@@ -96,6 +97,7 @@ class InvoiceController extends Controller
 															->where('booking_tickets.Name', $username)
 															->whereDate('booking_tickets.created_at','<=', $to)
 															->whereDate('booking_tickets.created_at', '>=', $from)
+															->orderBy('booking_tickets.created_at', 'asc')
 															->latest()
 															->get();
 				}
@@ -111,6 +113,7 @@ class InvoiceController extends Controller
 															})
 															->select('users.name', 'booking_tickets.*', 'checkinvoices.id as checkstatus')
 															->where('booking_tickets.user_id',  $userid)
+															->orderBy('booking_tickets.created_at', 'asc')
 															->latest()
 															->get();
 				}
@@ -125,6 +128,7 @@ class InvoiceController extends Controller
 															})
 															->select('users.name', 'booking_tickets.*', 'checkmangements.id as checkstatus')
 															->where('booking_tickets.Name', $username)
+															->orderBy('booking_tickets.created_at', 'asc')
 															->latest()
 															->get();
 				}
@@ -139,12 +143,11 @@ class InvoiceController extends Controller
 		$id = $request->id;
 
 		$data = BookingTicket::leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
-			->where('booking_tickets.id', $id)
-			->select('buses.carnumber as carnumber', 'booking_tickets.*')->get();
+								->where('booking_tickets.id', $id)
+								->select('buses.carnumber as carnumber', 'booking_tickets.*')->get();
 
 		//get only user.
 		$users = User::where('role', 3)->get();
-		
 		$curUser = User::where('name', $data[0]->name)->get();
 		
 		return view('invoice.editinvoice', ['value' => $data,
@@ -221,8 +224,7 @@ class InvoiceController extends Controller
 	{
 		$name = $request->name;
 
-		if(Auth::user()->role == 1)
-		{
+		if(Auth::user()->role == 1){
 		
             $userId = $user->id;
 
@@ -389,9 +391,9 @@ class InvoiceController extends Controller
 			}else{
 				$check->delete();
 				$booking = BookingTicket::where('user_id', $userId)
-									->whereDate('booking_tickets.created_at','<=', $to)
-									->whereDate('booking_tickets.created_at', '>=', $from)
-									->get();
+										->whereDate('booking_tickets.created_at','<=', $to)
+										->whereDate('booking_tickets.created_at', '>=', $from)
+										->get();
 
 				foreach($booking as $val)
 				{

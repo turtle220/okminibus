@@ -97,7 +97,7 @@ class ExcelController extends Controller
                     $result =DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
                                                         ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
                                                         ->select('users.name', 'booking_tickets.*', 'buses.carnumber', 'buses.carname')
-                                                        ->orderBy('booking_tickets.created_at', 'asc')
+                                                        ->orderBy('booking_tickets.created_at', 'desc')
                                                         ->get();
 
                     $count = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')
@@ -112,7 +112,7 @@ class ExcelController extends Controller
                                                         ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
                                                         ->select('users.name', 'booking_tickets.*', 'buses.carnumber', 'buses.carname')
                                                         ->where('booking_tickets.Name', $request->username)
-                                                        ->orderBy('booking_tickets.created_at', 'asc')
+                                                        ->orderBy('booking_tickets.created_at', 'desc')
                                                         ->get();
 
                     $count = DB::table('booking_tickets')->join('users', 'booking_tickets.user_id', '=', 'users.id')

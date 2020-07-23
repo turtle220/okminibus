@@ -140,7 +140,7 @@ class BookingController extends Controller
                                                         ->whereDate('booking_tickets.created_at','<=', $to)
                                                         ->whereDate('booking_tickets.created_at', '>=', $from)
                                                         ->select('users.name', 'booking_tickets.*', 'checkmangements.id as checkstatus')
-                                                        // ->orderBy('booking_tickets.created_at', 'desc')
+                                                        ->orderBy('booking_tickets.created_at', 'desc')
                                                         // ->orderby('booking_tickets.Name')
                                                         ->latest()
                                                         ->get(); 
@@ -155,7 +155,7 @@ class BookingController extends Controller
                                                         ->select('users.name', 'booking_tickets.*', 'checkmangements.id as checkstatus', 'buses.carnumber')
                                                         ->where('booking_tickets.user_id', $userid)
                                                         ->select('users.name', 'booking_tickets.*', 'checkmangements.id as checkstatus')
-                                                        // ->orderBy('booking_tickets.created_at', 'desc')
+                                                        ->orderBy('booking_tickets.created_at', 'asc')
                                                         // ->orderby('booking_tickets.Name')
                                                         ->latest()
                                                         ->get(); 
@@ -163,6 +163,39 @@ class BookingController extends Controller
                 }
 
             case 2:
+                if(isset($from) && isset($to)){
+                    $results = BookingTicket::leftJoin('users', 'booking_tickets.user_id', '=', 'users.id')
+                                                        ->leftJoin('checkmangements',function ($join) use ($userid){
+                                                            $join->on('booking_tickets.id', '=' , 'checkmangements.bookingticket_id') ;
+                                                            $join->where('checkmangements.user_id','=', $userid) ;
+                                                        })
+                                                        ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
+                                                        ->select('users.name', 'booking_tickets.*', 'checkmangements.id as checkstatus', 'buses.carnumber')
+                                                        ->where('booking_tickets.user_id', $userid)
+                                                        ->whereDate('booking_tickets.created_at','<=', $to)
+                                                        ->whereDate('booking_tickets.created_at', '>=', $from)
+                                                        ->select('users.name', 'booking_tickets.*', 'checkmangements.id as checkstatus')
+                                                        ->latest()
+                                                        ->orderBy('booking_tickets.created_at', 'asc')
+                                                        ->get(); 
+                    break;
+                } else{
+                    $results = BookingTicket::leftJoin('users', 'booking_tickets.user_id', '=', 'users.id')
+                                                        ->leftJoin('checkmangements',function ($join) use ($userid){
+                                                            $join->on('booking_tickets.id', '=' , 'checkmangements.bookingticket_id') ;
+                                                            $join->where('checkmangements.user_id','=', $userid) ;
+                                                        })
+                                                        ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
+                                                        ->select('users.name', 'booking_tickets.*', 'checkmangements.id as checkstatus', 'buses.carnumber')
+                                                        ->where('booking_tickets.user_id', $userid)
+                                                        ->latest()
+                                                        // ->orderby('booking_tickets.Name')
+                                                        ->orderBy('booking_tickets.created_at', 'desc')
+                                                        ->get(); 
+                    break;
+                }
+
+            case 3:
                 if(isset($from) && isset($to)){
                     $results = BookingTicket::leftJoin('users', 'booking_tickets.user_id', '=', 'users.id')
                                                         ->leftJoin('checkmangements',function ($join) use ($userid){
@@ -189,18 +222,13 @@ class BookingController extends Controller
                                                         ->leftJoin('buses', 'booking_tickets.bus_id', '=', 'buses.id')
                                                         ->select('users.name', 'booking_tickets.*', 'checkmangements.id as checkstatus', 'buses.carnumber')
                                                         ->where('booking_tickets.user_id', $userid)
+                                                        ->orderBy('booking_tickets.created_at', 'asc')
                                                         ->latest()
-                                                        // ->orderby('booking_tickets.Name')
-                                                        ->orderBy('booking_tickets.created_at', 'desc')
-                                                        ->get(); 
+                                                        ->get();
                     break;
-                }
-
-            case 3:
-                $results = [];                
-                break;
+                }     
         }
-
+        
         return $results;
     }
 
