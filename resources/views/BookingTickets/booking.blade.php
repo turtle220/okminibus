@@ -129,7 +129,7 @@
 <div class="animated fadeIn">
 
     <div class="margin-right margin-bottom header">
-        @if(Auth::user()->role == 1)
+        @if(Auth::user()->role == 1 || Auth::user()->role == 2)
         <button class="header-button btn-ExtrAdd pull-left margin-bottom margin-right" onClick="EditBookingTicket('')"><i class="fa fa-plus"></i>&nbsp{{ __('custom.newticket') }}</button>
         <button class="header-button pull-left margin-right" data-toggle="modal" data-target="#searchModal"><i class="fa fa-copy"></i>&nbsp;{{__('custom.generateclone')}}</button>
         @endif
@@ -218,10 +218,10 @@
                                 <td>{{ $BookingTicket->Name }}</td>
                                 <!-- <td> @if($BookingTicket->StatusId == "p"||$BookingTicket->StatusId == "P"){{__('custom.pending')}}@else {{__('custom.bookkeeping')}}@endif</td> -->
                                 <td>{{ $BookingTicket->sd}}</td>
-                                <td>{{ $BookingTicket->carnumber}}</td>
+                                <td>{{ $BookingTicket->carnumber }}</td>
                                 <td>{{ $BookingTicket->BTTime}}</td>
                                 <td>{{ $BookingTicket->name}}</td>
-                                @if(Auth::user()->role == 1)
+                                @if(Auth::user()->role == 1 || Auth::user()->role == 2)
                                 <td>
                                     <button class="HandCursors SelectableLine myButton" data-toggle="modal" onClick="ShowBookingTicket('{{$BookingTicket->BTicketId}}')"><i class="fa fa-ticket"></i>&nbsp{{__('custom.viewshow')}}</button>
                                 </td>

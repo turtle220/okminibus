@@ -36,7 +36,6 @@ class UserController extends Controller
 	public function store(Request $request)
 	{
 		$request->validate([
-					'name' => 'required|string|max:255|unique:users',
 		            'firstname' => 'required|string|max:255',
 		            'lastname' => 'required|string|max:255',
 		            'email' => 'required|string|email|max:255|unique:users',
@@ -45,7 +44,7 @@ class UserController extends Controller
 
 		$user = new User;
 
-		$user->name = $request->name;
+		// $user->name = $request->name;
 		$user->firstname = $request->firstname;
 		$user->lastname = $request->lastname;
 		$user->email = $request->email;

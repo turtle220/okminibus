@@ -19,6 +19,7 @@
                     <table id="bootstrap-data-table-export" class="table table-striped table-bordered col-md-center">
                         <thead>
                             <tr>
+
                                 <th>{{ __('custom.no') }}</th>
                                 <th>{{ __('custom.firstname') }}</th>
                                 <th>{{ __('custom.lastname') }}</th>
@@ -46,8 +47,6 @@
                                 </td>
                                 <!-- <td>
 										<form method="GET" action="{{ url('user/edit') }}">
-										
-
 											<input type="hidden" name="userId"  value="{{$val->id}}">
 											<button type="submit" class="edit">{{ __('custom.edit') }}</button>
 										</form>
