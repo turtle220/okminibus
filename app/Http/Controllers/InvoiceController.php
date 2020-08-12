@@ -223,7 +223,7 @@ class InvoiceController extends Controller
 	public function invoicelistToPdf(Request $request)
 	{
 		$name = $request->name;
-
+		$user = Auth::user();
 		if(Auth::user()->role == 1){
 		
             $userId = $user->id;

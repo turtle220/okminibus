@@ -32,8 +32,6 @@
 	      		<div class="fieldsLabel">{{__('custom.fax')}}:</div><div class="fieldsValue">{{ $BookingTicket->PAX }}</div>
 	      		<div class="fieldsLabel">{{__('custom.price')}}:</div><div class="fieldsValue">€&nbsp{{  $BookingTicket->Price }}</div>
 	      	</div>
-	      	
-	      	
 	      </div>
 	      <div class="modal-footer">
 	        <a class="btn btn-default" target="_blank" href="{{ url('/BookingTickets/PdfTicket/'.$BookingTicket->id)  }}">{{ __('custom.generatepdf') }}</a><!--Genera Pdf-->

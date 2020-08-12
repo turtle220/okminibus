@@ -552,7 +552,7 @@ function EditBookingTicket(BTicketId) {
 }
 
 function SaveBookingTicket(BTicketId) {
-    if (ticketValidation('ModalForm') == true) {
+    // if (ticketValidation('ModalForm') == true) {
         var url = $('#BookingTickets-save').val();
 
         var dataString = 'BTicketId=' + BTicketId;
@@ -603,11 +603,11 @@ function SaveBookingTicket(BTicketId) {
         }).always(function() {
             modal1Dismiss();
         });
-    } else {
-        var msg = $('#required').val();
+    // } else {
+        // var msg = $('#required').val();
 
-        toastr['warning'](msg);
-    }
+        // toastr['warning'](msg);
+    // }
 }
 
 function reSaveBookingTicket() {

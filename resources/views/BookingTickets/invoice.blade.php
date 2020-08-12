@@ -2,40 +2,22 @@
 
 @section('content')
 
-
-
-
-
 <h2 class="margin-bottom">{{__('custom.invoice')}}</h2>
 
 <div style="margin-right: -15px;" class="margin-bottom">
 
     <a class="btn btn-primary btn-ExtrAdd" href="{{url('/')}}"><i class="fa fa-chevron-left"></i> &nbsp;{{ __('custom.back') }}</a>
 
-
-
     <form action="{{ url('invoice/edit') }}" method="GET" style="display: inline-block;">
-
-
-
         <input type="hidden" name="id" value="{{$data[0]->id}}">
-
         <button type="submit" class="btn btn-primary"><i class="fa fa-pencil"></i> &nbsp;{{__('custom.edit') }}</button>
-
     </form>
-
-
 
     <form action="{{ url('invoice/pdf') }}" method="post" style="display: inline-block;">
-
         @csrf
-
         <input type="hidden" name="id" value="{{$data[0]->id}}">
-
         <button type="submit" class="btn btn-primary"><i class="fa fa-print"></i> &nbsp;{{__('custom.PDF') }}</button>
-
     </form>
-
 </div>
 
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -44,97 +26,47 @@
 
 <style type="text/css">
     .col-md-center {
-
         text-align: center;
-
     }
-
-
-
-
-
     .excel-wrap {
-
         background: white;
-
         padding: 20px 50px;
-
     }
 
     .excel-wrap .title {
-
         border-bottom: 2px solid black;
-
     }
-
-
 
     .border-bottom {
-
         border-bottom: 1px solid #eee;
-
     }
-
-
 
     .margin-bottom-20 {
-
         margin-bottom: 20px;
-
     }
-
-
 
     .excel-wrap .row {
-
         margin-bottom: 20px;
-
     }
-
-
 
     .excel-wrap>div>div>div>input {
-
         margin-bottom: -1px;
-
         border-color: #eee;
-
         border-bottom: none;
-
-
-
     }
-
-
 
     .width-100 {
-
         width: 100%;
-
     }
-
-
-
     .excel-wrap>div>div>div>textarea {
-
         border-color: #eee;
-
     }
-
-
-
     .padding-bottom {
-
         padding-bottom: 10px;
-
     }
 
-
-
-    .form-control[readonly] {
-
+   .form-control[readonly] {
         background-color: white;
-
     }
 
     .red {

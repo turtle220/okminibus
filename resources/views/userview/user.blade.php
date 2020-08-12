@@ -45,13 +45,12 @@
                                         <option @if($val->role ==3)selected @endif value="3">{{ __('custom.user') }}</option>
                                     </select>
                                 </td>
-                                <!-- <td>
+                                    <!-- <td>
 										<form method="GET" action="{{ url('user/edit') }}">
 											<input type="hidden" name="userId"  value="{{$val->id}}">
 											<button type="submit" class="edit">{{ __('custom.edit') }}</button>
 										</form>
 									</td> -->
-
                                 <td>
                                     <form method="post" action="{{ url('user/delete') }}">
                                         @csrf

@@ -93,12 +93,6 @@ return [
     'to' => 'Para',
     'search' => 'Buscar',
     'excel' => 'Excel',
-  
-
-
-
-
-
 
     //large character.
     'lclient' => 'Cliente',
@@ -106,14 +100,12 @@ return [
     'lemail' => 'Correo electrónico',
     'lduedate' => 'DUEDATE',
     'lgrandtotal' => 'GRANDTOTAL',
-
     'pending' => 'Pendiente',
     'bookkeeping' => 'Enviado',
     'invoicelanguage' => 'Idioma de la factura',
     'check' => 'Chequear',
     'bookingtickettable' => 'Mesa de reserva',
     'generateclone' => 'Generar clon',
-
     'Arrival' => 'Llegada',
     'Exit' => 'Salida',
     'extra' => 'extra',

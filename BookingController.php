@@ -1083,33 +1083,20 @@ class BookingController extends Controller
         }
     }
 
-
     public function search(Request $request)
 
     {
-
-
-
-
-
         if($request->ajax()) {
 
             // select country name from database
 
             $data = BookingTicket::where('BTicketRef', 'like', '%'.$request->keyword.'%')
-
                                     ->orWhere('Hotel', 'like', '%'.$request->keyword.'%')
-
                                     ->orWhere('Name', 'like', '%'.$request->keyword.'%')
-
                                     ->orWhere('Passport', 'like', '%'.$request->keyword.'%')
-
                                     ->orWhere('Phone', 'like', '%'.$request->keyword.'%')
-
                                     ->latest()
-
                                     ->orderby('booking_tickets.Name')
-
                                     ->get(); 
 
             // declare an empty array for output
@@ -1121,50 +1108,30 @@ class BookingController extends Controller
             if (count($data)>0) {
 
                 // concatenate output to the array
-
                 $output = '<ul class="list-group" style="display: block; position: relative; z-index: 1">';
-
                 // loop through the result array
 
                 foreach ($data as $row){
-
                     // concatenate output to the array
-
                     $output .= '<li class="list-group-item">'." ".$row['BTTimeTicketRef']."".$row['Name']." ".$row['Hotel']." ".$row['Phone']." ".$row['Passport'].'</li><input type="hidden" class="BTicketId" value="'.$row['BTicketId'].'">';
 
                 } 
-
                 // end of output
-
                 $output .= '</ul>';
 
             }
 
             else {
-
                 // if there's no matching results according to the input
-
                 $output .= '<li class="list-group-item">'.'No results'.'</li>';
 
             }
 
             // return output result array
-
             return $output;
 
         }
-
-
-
-       
-
     }
-
-
-
-
-
-
 
     public function getCurBusId()
 
